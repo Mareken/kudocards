@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Routes from './routes';
 import GlobalStyle from './styles/global';
+import { MouseOverProvider } from './context/MouseOver'
 
 const Container = styled.div`
   height: 100%;
@@ -11,8 +12,10 @@ const Container = styled.div`
 function App() {
   return (
     <Container>
-      <GlobalStyle />
-      <Routes />
+        <MouseOverProvider>
+        <GlobalStyle />
+        <Routes />
+      </MouseOverProvider>
     </Container>
   );
 }
