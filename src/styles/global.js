@@ -1,39 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
-  @font-face {
-    font-family: 'Plus Jakarta Display';
-    src: local('Plus Jakarta Display Regular'), local('PlusJakartaDisplay-Regular'),
-        url('../assets/fonts/PlusJakartaDisplay-Regular.woff2') format('woff2'),
-        url('../assets/fonts/PlusJakartaDisplay-Regular.woff') format('woff'),
-        url('../assets/fonts/PlusJakartaDisplay-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
-
-  @font-face {
-      font-family: 'Plus Jakarta Display';
-      src: local('Plus Jakarta Display Medium'), local('PlusJakartaDisplay-Medium'),
-          url('../assets/fonts/PlusJakartaDisplay-Medium.woff2') format('woff2'),
-          url('../assets/fonts/PlusJakartaDisplay-Medium.woff') format('woff'),
-          url('../assets/fonts/PlusJakartaDisplay-Medium.ttf') format('truetype');
-      font-weight: 500;
-      font-style: normal;
-      font-display: swap;
-  }
-
-  @font-face {
-      font-family: 'Plus Jakarta Display';
-      src: local('Plus Jakarta Display Bold'), local('PlusJakartaDisplay-Bold'),
-          url('../assets/fonts/PlusJakartaDisplay-Bold.woff2') format('woff2'),
-          url('../assets/fonts/PlusJakartaDisplay-Bold.woff') format('woff'),
-          url('../assets/fonts/PlusJakartaDisplay-Bold.ttf') format('truetype');
-      font-weight: bold;
-      font-style: normal;
-      font-display: swap;
-  }
-
   * {
     box-sizing: border-box;
   }
@@ -57,7 +24,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
-    font-family: "Plus Jakarta Display", Arial, Helvetica, sans-serif;
+    font-family: 'DM Sans', Arial, Helvetica, sans-serif;
   }
 
   /* HTML5 display-role reset for older browsers */
