@@ -17,7 +17,7 @@ const GlobalStyle = createGlobalStyle`
   article, aside, canvas, details, embed, 
   figure, figcaption, footer, header, hgroup, 
   menu, nav, output, ruby, section, summary,
-  time, mark, audio, video, button {
+  time, mark, audio, video, button, textarea {
     margin: 0;
     padding: 0;
     border: 0;
@@ -67,6 +67,10 @@ const GlobalStyle = createGlobalStyle`
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
+  }
+
+  input:focus, textarea:focus {
+    outline: none;
   }
 
   .noSelect {

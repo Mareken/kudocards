@@ -6,6 +6,7 @@ import GlobalStyle from './styles/global';
 import { MouseOverProvider } from './context/MouseOver';
 import { ActiveTabProvider } from './context/ActiveTab';
 import { SoundProvider } from './context/Sound';
+import { CardProvider } from './context/Card';
 import useTheme from './context/Theme';
 
 const Container = styled.div`
@@ -19,12 +20,14 @@ function App() {
     <ThemeProvider theme={theme}>
       <Container>
         <SoundProvider>
-          <ActiveTabProvider>
-            <MouseOverProvider>
-              <GlobalStyle />
-              <Routes />
-            </MouseOverProvider>
-          </ActiveTabProvider>
+          <CardProvider>
+            <ActiveTabProvider>
+              <MouseOverProvider>
+                <GlobalStyle />
+                <Routes />
+              </MouseOverProvider>
+            </ActiveTabProvider>
+          </CardProvider>
         </SoundProvider>
       </Container>
     </ThemeProvider>

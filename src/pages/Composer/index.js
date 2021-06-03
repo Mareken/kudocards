@@ -1,12 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 
+import { AnimatePresence } from 'framer-motion';
+
 import Buttons from '../../components/Buttons';
 import useActiveTab from '../../context/ActiveTab';
+import useCard from '../../context/Card';
+import Content from '../../components/Content';
+import FontNColor from '../../components/FontNColor';
 
-import { Container, Aside, Heading, Tabs, Tab, Indicator, Preview, Card, ButtonDownload } from './styles';
+import { Container, Aside, Heading, Tabs, Tab, Indicator, Preview, CardContainer, ButtonDownload, TiltCustom } from './styles';
 
 function Composer () {
   const { activeTab, setActiveTab } = useActiveTab();
+  const { card } = useCard();
   const firstTabRef = useRef();
   const secondTabRef = useRef();
   const thirdTabRef = useRef();
@@ -16,6 +22,10 @@ function Composer () {
   useEffect(() => {
     changeIndicator();
   }, [activeTab]);
+
+  function downloadKudoCard () {
+    
+  }
 
   function changeIndicator() {
     switch (activeTab) {
@@ -84,17 +94,32 @@ function Composer () {
           <Indicator
             width={indicatorWidth}
             x={translateX}
+            color={card.color}
           />
         </Tabs>
+
+        <AnimatePresence exitBeforeEnter={true}>
+          { 
+            activeTab === 'content' ? <Content /> : (activeTab === 'font&color' ? <FontNColor /> : null)
+          }
+        </AnimatePresence>
       </Aside>
+
       <Preview>
         <Buttons inComposer={true} />
-        <Card>
+        <CardContainer>
 
-        </Card>
-        <ButtonDownload>
-          Download
-        </ButtonDownload>
+        </CardContainer>
+        <TiltCustom
+          perspective={500}
+          scale={1.1}
+          className='noSelect'
+          onClick={downloadKudoCard}
+        >
+          <ButtonDownload color={card.color}>
+            <span>Download</span>
+          </ButtonDownload>
+        </TiltCustom>
       </Preview>
     </Container>
   );

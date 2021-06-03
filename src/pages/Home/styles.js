@@ -80,7 +80,7 @@ export const Hand = styled(HomeImage)`
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 30%;
+  width: 25%;
 `;
 
 export const Diamond = styled(HomeImage)`
@@ -103,7 +103,7 @@ export const Man = styled(HomeImage)`
 
 export const Woman = styled(HomeImage)`
   left: 5%;
-  bottom: 5%;
+  bottom: 2%;
   width: 24%;
 `;
 

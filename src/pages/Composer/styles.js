@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import Tilt from 'react-parallax-tilt';
 
 export const Container = styled(motion.div)`
   display: flex;
@@ -25,6 +26,8 @@ export const Tabs = styled.div`
   height: 50px;
   align-items: center;
   position: relative;
+  user-select: none;
+  margin-bottom: 40px;
 `;
 
 export const Tab = styled.div`
@@ -34,7 +37,8 @@ export const Tab = styled.div`
   align-items: center;
   text-align: center;
   color: ${props => props.active ? props.theme.text.primary : props.theme.text.secondary};
-  font-size: 18px;
+  font-size: 1rem;
+  font-weight: 500;
   transition: all .15s ease;
   margin-right: 32px;
 
@@ -54,9 +58,9 @@ export const Indicator = styled.div`
   width: ${props => props.width}px;
   transform: ${props => `translateX(${props.x}px)`};
   height: 2px;
-  background: ${props => props.theme.colors.primary};
+  background: ${props => props.color};
   border-radius: 4px;
-  transition: all .3s cubic-bezier(.2,.7,.2,1.1);
+  transition: all .3s cubic-bezier(.2,.7,.2,1.2);
 `;
 
 export const Preview = styled.div`
@@ -68,7 +72,7 @@ export const Preview = styled.div`
   justify-content: center;
 `;
 
-export const Card = styled.div`
+export const CardContainer = styled.div`
   width: 320px;
   height: 200px;
   margin-top: 64px;
@@ -76,19 +80,30 @@ export const Card = styled.div`
 
 export const ButtonDownload = styled.div`
   width: 150px;
-  height: 50px;
-  background: ${props => props.theme.colors.primary};
+  height: 60px;
+  background: ${props => props.color};
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all .15s ease;
-  border-radius: 25px;
+  border-radius: 30px;
   font-weight: 500;
 
+  > span {
+    transform: translateZ(20px);
+  }
+
   &:hover {
-    transform: translateY(2px);
     box-shadow: 1px 1px 2px rgba(0, 169, 247, 0.16);
   }
+`;
+
+export const TiltCustom = styled(Tilt)`
+  transform-style: preserve-3d;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 `;

@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, useEffect } from 'react';
 import usePersistedState from '../utils/hooks/usePersistedState';
 import useSoundLib from 'use-sound';
 import mainMusic from '../assets/audio/main.mp3';
@@ -7,7 +7,11 @@ const SoundContext = createContext();
 
 export function SoundProvider ({ children }) {
   const [ play, { isPlaying, stop }] = useSoundLib(mainMusic, { volume: 0.8, interrupt: true, loop: true });
-  const [ playing, setPlaying ] = usePersistedState('audioplaying', isPlaying);
+  const [ playing, setPlaying ] = usePersistedState('audioplaying', false);
+
+  useEffect(() => {
+    setPlaying(false);
+  }, []);
 
   function playSound() {
     if (!isPlaying) {

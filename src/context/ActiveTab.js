@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState } from 'react';
 const ActiveTabContext = createContext();
 
 export function ActiveTabProvider ({ children }) {
-  const [ activeTab, setActiveTab ] = useState('content');
+  const [ activeTab, setActiveTab ] = useState('font&color');
 
   return (
     <ActiveTabContext.Provider value={{ activeTab, setActiveTab }}>
