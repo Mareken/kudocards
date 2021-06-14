@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { lighten } from 'polished';
 import styled from 'styled-components';
 
 export const Container = styled(motion.div)`
@@ -55,13 +56,17 @@ export const Label = styled.label`
 export const Input = styled.input`
   height: 60px;
   border-radius: 5px;
-  background: ${props => props.theme.colors.secondary};
+  background: ${props => props.theme.title === 'light' ? props.theme.colors.secondary : lighten(.08, props.theme.colors.secondary)};
   border: 2px solid ${props => props.theme.colors.border};
   padding: 0 16px;
   font-size: 1rem;
   line-height: 1.5;
   transition: all .15s ease;
   color: ${props => props.theme.text.primary};
+
+  &:hover {
+    border-color: ${props => props.theme.text.secondary};
+  }
 
   &:focus {
     background: ${props => props.theme.colors.background};

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
 import Tilt from 'react-parallax-tilt';
+import { motion } from 'framer-motion';
+import { desaturate, lighten } from 'polished';
 
 export const Container = styled(motion.div)`
   display: flex;
@@ -9,7 +10,7 @@ export const Container = styled(motion.div)`
 
 export const Aside = styled.div`
   flex: 0 0 600px;
-  background: ${props => props.theme.colors.background};
+  background: ${props => props.theme.title === 'light' ? props.theme.colors.background : props.theme.colors.secondary};
   padding: 40px;
 `;
 
@@ -58,14 +59,14 @@ export const Indicator = styled.div`
   width: ${props => props.width}px;
   transform: ${props => `translateX(${props.x}px)`};
   height: 2px;
-  background: ${props => props.color};
+  background: ${props => props.theme.colors.primary};
   border-radius: 4px;
   transition: all .3s cubic-bezier(.2,.7,.2,1.2);
 `;
 
 export const Preview = styled.div`
   flex: 1;
-  background: ${props => props.theme.colors.secondary};
+  background: ${props => props.theme.title === 'light' ? props.theme.colors.secondary : props.theme.colors.background};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -73,9 +74,18 @@ export const Preview = styled.div`
 `;
 
 export const CardContainer = styled.div`
-  width: 320px;
-  height: 200px;
-  margin-top: 64px;
+  max-width: 100%;
+  width: 80%;
+  height: auto;
+  min-height: 350px;
+  margin: 64px 0 32px 0;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px rgba(2, 33, 48, 0.16);
+  background: ${props => props.theme.title === 'light' ? props.theme.colors.background : props.theme.colors.secondary};
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 `;
 
 export const ButtonDownload = styled.div`
@@ -106,4 +116,69 @@ export const TiltCustom = styled(Tilt)`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+`;
+
+export const CardHeading = styled.h3`
+  font-size: 24px;
+  font-weight: bold;
+  color: ${props => props.theme.text.primary};
+`;
+
+export const CardLeft = styled.div`
+  flex: 0 0 60%;
+  max-width: 60%;
+  height: 100%;
+  padding: 32px;
+  hyphens: auto;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+`;
+
+export const CardMessage = styled.p`
+  font-size: 18px;
+  color: ${props => props.theme.text.primary};
+  line-height: 27px;
+  margin: 16px 0;
+  white-space: pre-wrap;
+`;
+
+export const CardFooter = styled.div`
+  display: flex;
+  margin-top: auto;
+  align-items: flex-start;
+  border: 1px solid red;
+`;
+
+export const CardFrom = styled.p`
+  display: block;
+  position: relative;
+  color: ${props => props.theme.colors.primary};
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 26px;
+  margin-right: 32px;
+  flex: 0 0 1;
+  max-width: 50%;
+
+  &::before {
+    content: 'De: ';
+    color: ${props => props.theme.text.primary};
+  }
+`;
+
+export const CardTo = styled(CardFrom)`
+  &::before {
+    content: 'Para: ';
+  }
+`;
+
+export const CardRight = styled.div`
+  flex: 0 0 40%;
+  height: 100%;
+`;
+
+export const CardImageContainer = styled.div`
+  background: ${props => lighten(.35, props.color)};
+  height: 100%;
 `;

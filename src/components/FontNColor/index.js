@@ -12,7 +12,7 @@ function FontNColor() {
   const { card, setCard } = useCard();
   const [ selectingFont, setSelectingFont ] = useState(false);
   const currTheme = useContext(ThemeContext);
-  const colors = ['#00A9F7', '#DE8C20', '#FF7E96', '#A263AC', '#9EDE16', '#434343', '#2D586C', '#01A3B2'];
+  const colors = ['#00A9F7', '#DE8C20', '#FF7E96', '#A263AC', '#487921', '#e66a6a', '#6a91e6', '#01A3B2'];
 
   useEffect(() => {
     document.addEventListener('keydown', handleKeyPress);

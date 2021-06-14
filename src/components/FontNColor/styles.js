@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { darken, rgba } from 'polished';
+import { darken, lighten, rgba } from 'polished';
 
 export const Container = styled(motion.div)`
   width: 100%;
@@ -8,11 +8,10 @@ export const Container = styled(motion.div)`
   flex-direction: column;
 `;
 
-
 export const FontSelect = styled.div`
   height: 60px;
   border-radius: 5px;
-  background: ${props => props.selecting ? props.theme.colors.background : props.theme.colors.secondary};
+  background: ${props => props.selecting ? props.theme.colors.background : lighten(.08, props.theme.colors.secondary)};
   border: 2px solid ${props => props.selecting ? props.theme.colors.primary : props.theme.colors.border};
   padding: 0 16px;
   font-size: 1rem;
@@ -23,6 +22,10 @@ export const FontSelect = styled.div`
   display: flex;
   align-items: center;
   position: relative;
+
+  &:hover {
+    border-color: ${props => props.theme.text.secondary};
+  }
 `;
 
 export const FontSelectedText = styled.span`
@@ -114,7 +117,7 @@ export const Color = styled.div`
   border-radius: ${props => props.selected ? '50%' : '5px'};
   transition: all .15s ease;
   border: 2px solid ${props => props.selected ? darken(.3, props.value) : 'transparent'};
-  box-shadow: ${props => props.selected ? `0 0 0 4px ${props.theme.colors.background} inset` : 'none'};
+  box-shadow: ${props => props.selected ? `0 0 0 4px ${props.theme.title === 'light' ? props.theme.colors.background : props.theme.colors.secondary} inset` : 'none'};
   display: flex;
   align-items: center;
   justify-content: center;

@@ -9,7 +9,7 @@ export const Container = styled(motion.div)`
 export const Button = styled.div`
   cursor: pointer;
   margin: 0 8px;
-  background: ${props => props.inComposer ? props.theme.colors.background : props.theme.colors.secondary};
+  background: ${props => props.theme.title === 'dark' ? props.theme.colors.secondary : (props.inComposer ? props.theme.colors.background : props.theme.colors.secondary)};
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -29,7 +29,7 @@ export const Button = styled.div`
       transform: ${props.playing ? 'rotate(45deg) translate(-50%, -50%) scaleX(0)' : 'rotate(45deg) translate(-50%, -50%) scaleX(1)'};
       width: 80%;
       height: 2px;
-      border-top: 2px solid ${props.theme.colors.background};
+      border-top: 2px solid ${props.inComposer ? props.theme.colors.background : props.theme.colors.secondary};
       background: ${props.theme.text.primary};
       border-radius: 2px;
       transform-origin: top left;

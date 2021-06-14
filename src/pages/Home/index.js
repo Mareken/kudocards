@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import useMouseOver from "../../context/MouseOver";
+import useActiveTab from "../../context/ActiveTab";
 import Buttons from "../../components/Buttons";
 
 import hand from "../../assets/images/hand.png";
@@ -33,16 +34,18 @@ import {
 
 function Home() {
   const height = window.innerHeight;
+  const { setActiveTab } = useActiveTab();
   const words = ["TimeF0d@", "MelhorTime", "JustDoIt", "SóVamo", "GoodVibes"];
   const [ chosenWord, setChosenWord ] = useState(words[0]);
   const history = useHistory();
   const { setIsOver } = useMouseOver();
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [ mousePos, setMousePos ] = useState({ x: 0, y: 0 });
   let title = 'KudoCards.';
 
   useEffect(() => {
     document.addEventListener("mousemove", getMousePos);
     setChosenWord(words[Math.floor(Math.random() * words.length)]);
+    setActiveTab('content');
 
     return () => {
       document.removeEventListener("mousemove", getMousePos);

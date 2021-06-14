@@ -1,9 +1,11 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext } from 'react';
+
+import usePersistedState from '../utils/hooks/usePersistedState';
 
 const ActiveTabContext = createContext();
 
 export function ActiveTabProvider ({ children }) {
-  const [ activeTab, setActiveTab ] = useState('font&color');
+  const [ activeTab, setActiveTab ] = usePersistedState('activetab', 'content');
 
   return (
     <ActiveTabContext.Provider value={{ activeTab, setActiveTab }}>
