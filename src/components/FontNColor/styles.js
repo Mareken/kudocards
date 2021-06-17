@@ -1,12 +1,18 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { darken, lighten, rgba } from 'polished';
+import tinycolor from 'tinycolor2';
 
 export const Container = styled(motion.div)`
   width: 100%;
   display: flex;
   flex-direction: column;
 `;
+
+function isLight (color) {
+  const c = tinycolor(color);
+  return (c.getBrightness() > 130);
+}
 
 export const FontSelect = styled.div`
   height: 60px;
@@ -75,19 +81,19 @@ export const Option = styled.button`
   }
 
   &:nth-of-type(2) {
-    font-family: 'Caveat', cursive;
+    font-family: 'Caveat';
   }
 
   &:nth-of-type(2) {
-    font-family: 'Crimson Text', cursive;
+    font-family: 'Crimson Text';
   }
 
   &:nth-of-type(2) {
-    font-family: 'Indie Flower', cursive;
+    font-family: 'Indie Flower';
   }
 
   &:last-of-type {
-    font-family: 'Nanum Pen Script', monospace;
+    font-family: 'Nanum Pen Script';
   }
 
   &:hover {
@@ -116,7 +122,7 @@ export const Color = styled.div`
   height: 60px;
   border-radius: ${props => props.selected ? '50%' : '5px'};
   transition: all .15s ease;
-  border: 2px solid ${props => props.selected ? darken(.3, props.value) : 'transparent'};
+  border: 2px solid ${props => props.selected ? props.value : 'transparent'};
   box-shadow: ${props => props.selected ? `0 0 0 4px ${props.theme.title === 'light' ? props.theme.colors.background : props.theme.colors.secondary} inset` : 'none'};
   display: flex;
   align-items: center;
@@ -127,7 +133,7 @@ export const Color = styled.div`
 
     > path {
       transition: all .15s ease;
-      stroke: ${props => props.selected ? darken(.3, props.value) : props.value};
+      stroke: ${props => props.selected ? (isLight(props.value) ? darken(.3, props.value) : lighten(.5, props.value)) : props.value};
     }
   }
 

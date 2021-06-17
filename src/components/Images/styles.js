@@ -1,32 +1,55 @@
-import styled from 'styled-components';
+import { rgba } from 'polished';
+import styled, { keyframes } from 'styled-components';
+
+const squiggly = keyframes`
+  0% {
+    filter: url("#squiggly-0");
+  }
+  25% {
+    filter: url("#squiggly-1");
+  }
+  50% {
+    filter: url("#squiggly-2");
+  }
+  75% {
+    filter: url("#squiggly-3");
+  }
+  100% {
+    filter: url("#squiggly-4");
+  }
+`;
 
 export const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+
+  > svg {
+    display: none;
+  }
 `;
 
 export const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
-  height: calc(100vh - 200px);
-  overflow: hidden auto;
-  padding-right: 4px;
+  height: calc(100vh - 190px);
+  overflow-y: auto;
+  padding: 0 12px 32px 0;
   position: relative;
 
   ::-webkit-scrollbar {
-    width: 5px;
+    width: 4px;
     border-radius: 3px;
   }
 
   ::-webkit-scrollbar-track {
-    background: ${props => props.theme.colors.secondary};
+    background: ${props => rgba(props.theme.colors.secondary, 0)};
     border-radius: 3px;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: ${props => props.theme.text.secondary};
+    background: ${props => rgba(props.theme.text.secondary,.2)};
     border-radius: 3px;
   }
 `;
@@ -38,5 +61,9 @@ export const Image = styled.div`
   background: ${props => `url(${props.bg})`};
   background-size: cover;
   background-position: center;
-  transform-style: preserve-3d;
+  cursor: pointer;
+
+  &:hover {
+    animation: ${squiggly} 0.2s linear infinite;
+  }
 `;

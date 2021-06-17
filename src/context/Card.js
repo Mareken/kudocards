@@ -12,8 +12,8 @@ export function CardProvider ({ children }) {
     id: nanoid(),
     from: '',
     to: '',
-    header: '',
-    message: '',
+    header: 'Parabéns! 🥳 ',
+    message: 'Escreve uma mensagem aí 🙌',
     font: 'DM Sans',
     color: '#00A9F7',
     image: jaiminho

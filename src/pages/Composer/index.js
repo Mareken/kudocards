@@ -11,7 +11,7 @@ import Content from '../../components/Content';
 import FontNColor from '../../components/FontNColor';
 import Images from '../../components/Images';
 
-import { Container, Aside, Heading, Tabs, Tab, Indicator, Preview, CardContainer, ButtonDownload, TiltCustom, CardHeading, CardLeft, CardRight, CardMessage, CardFooter, CardFrom, CardTo, CardImageContainer } from './styles';
+import { Container, Aside, Heading, Tabs, Tab, Indicator, Preview, CardContainer, ButtonDownload, CardHeading, CardLeft, CardRight, CardMessage, CardFooter, CardFrom, CardTo, CardImageContainer, CardImage } from './styles';
 
 function Composer () {
   const { activeTab, setActiveTab } = useActiveTab();
@@ -147,25 +147,46 @@ function Composer () {
               {card.message}
             </CardMessage>
             <CardFooter>
-              <CardFrom>{card.from}</CardFrom>
-              <CardTo>{card.to}</CardTo>
+              <CardFrom currentColor={card.color}>{card.from}</CardFrom>
+              <CardTo currentColor={card.color}>{card.to}</CardTo>
             </CardFooter>
           </CardLeft>
           <CardRight>
-            <CardImageContainer color={card.color}>
+            <CardImageContainer currentColor={card.color}>
+              <CardImage src={card.image} />
             </CardImageContainer>
           </CardRight>
         </CardContainer>
-        <TiltCustom
-          perspective={500}
-          scale={1.1}
-          className='noSelect'
-          onClick={downloadKudoCard}
-        >
-          <ButtonDownload color={card.color} onClick={downloadKudoCard}>
-            <span>Download</span>
-          </ButtonDownload>
-        </TiltCustom>
+        <ButtonDownload currentColor={card.color} onClick={downloadKudoCard}>
+          <span>Download</span>
+          
+          <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+            <defs>
+              <filter id="squiggly-0">
+                <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="0"/>
+                <feDisplacementMap id="displacement" in="SourceGraphic" in2="noise" scale="6" />
+              </filter>
+              <filter id="squiggly-1">
+                <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="1"/>
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" />
+              </filter>
+              
+              <filter id="squiggly-2">
+                <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="2"/>
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" />
+              </filter>
+              <filter id="squiggly-3">
+                <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="3"/>
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" />
+              </filter>
+              
+              <filter id="squiggly-4">
+                <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="4"/>
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" />
+              </filter>
+            </defs> 
+          </svg>
+        </ButtonDownload>
       </Preview>
     </Container>
   );

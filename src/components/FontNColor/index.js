@@ -12,7 +12,7 @@ function FontNColor() {
   const { card, setCard } = useCard();
   const [ selectingFont, setSelectingFont ] = useState(false);
   const currTheme = useContext(ThemeContext);
-  const colors = ['#00A9F7', '#DE8C20', '#FF7E96', '#A263AC', '#487921', '#e66a6a', '#6a91e6', '#01A3B2'];
+  const colors = ['#00A9F7', '#DE8C20', '#8f7eff', '#A263AC', '#5eb89b', '#ff8080', '#6a91e6', '#01A3B2'];
 
   useEffect(() => {
     document.addEventListener('keydown', handleKeyPress);
@@ -23,7 +23,8 @@ function FontNColor() {
   }, []);
 
   function updateCardInfo (value, key) {
-    setCard({...card, [key]: value});
+    setCard(prevState => ({...prevState, [key]: value}));
+    setSelectingFont(false);
   }
 
   function handleKeyPress (evt) {

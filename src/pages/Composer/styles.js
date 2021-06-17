@@ -1,7 +1,30 @@
-import styled from 'styled-components';
-import Tilt from 'react-parallax-tilt';
+import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
-import { desaturate, lighten } from 'polished';
+import { lighten } from 'polished';
+import tinycolor from 'tinycolor2';
+
+const squiggly = keyframes`
+  0% {
+    filter: url("#squiggly-0");
+  }
+  25% {
+    filter: url("#squiggly-1");
+  }
+  50% {
+    filter: url("#squiggly-2");
+  }
+  75% {
+    filter: url("#squiggly-3");
+  }
+  100% {
+    filter: url("#squiggly-4");
+  }
+`;
+
+function isLight (color) {
+  const c = tinycolor(color);
+  return (c.getBrightness() > 130);
+}
 
 export const Container = styled(motion.div)`
   display: flex;
@@ -91,7 +114,6 @@ export const CardContainer = styled.div`
 export const ButtonDownload = styled.div`
   width: 150px;
   height: 60px;
-  background: ${props => props.color};
   color: #fff;
   display: flex;
   align-items: center;
@@ -99,23 +121,17 @@ export const ButtonDownload = styled.div`
   cursor: pointer;
   border-radius: 30px;
   font-weight: 500;
-
-  > span {
-    transform: translateZ(20px);
-  }
+  background: transparent;
+  background: ${props => props.currentColor};
 
   &:hover {
+    animation: ${squiggly} 0.25s linear infinite;
     box-shadow: 1px 1px 2px rgba(0, 169, 247, 0.16);
   }
-`;
 
-export const TiltCustom = styled(Tilt)`
-  transform-style: preserve-3d;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
+  > svg {
+    display: none;
+  }
 `;
 
 export const CardHeading = styled.h3`
@@ -147,13 +163,12 @@ export const CardFooter = styled.div`
   display: flex;
   margin-top: auto;
   align-items: flex-start;
-  border: 1px solid red;
 `;
 
 export const CardFrom = styled.p`
   display: block;
   position: relative;
-  color: ${props => props.theme.colors.primary};
+  color: ${props => props.currentColor};
   font-weight: bold;
   font-size: 18px;
   line-height: 26px;
@@ -179,6 +194,15 @@ export const CardRight = styled.div`
 `;
 
 export const CardImageContainer = styled.div`
-  background: ${props => lighten(.35, props.color)};
+  background: ${props => isLight(props.currentColor) ? lighten(.2, props.currentColor) : lighten(.4, props.currentColor)};
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const CardImage = styled.img`
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
 `;
