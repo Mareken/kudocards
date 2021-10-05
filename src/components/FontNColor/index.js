@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 
 import useCard from '../../context/Card';
-import { Icon } from '@iconify/react';
-import roundPlus from '@iconify/icons-ic/round-plus';
 import { ThemeContext } from 'styled-components';
+import { SketchPicker } from 'react-color';
 
 import { InputContainer } from '../Content/styles';
-import { Container, FontSelect, FontSelectedText, OptionsContainer, Option, Label, LabelText, ColorSelectContainer, Color, ButtonAddColor, SelectOverlay } from './styles';
+import { Container, FontSelect, FontSelectedText, OptionsContainer, Option, Label, LabelText, ColorSelectContainer, Color, ButtonPickColor, SelectOverlay } from './styles';
 
 function FontNColor() {
   const { card, setCard } = useCard();
   const [ selectingFont, setSelectingFont ] = useState(false);
+  const [ showPicker, setShowPicker ] = useState(false);
   const currTheme = useContext(ThemeContext);
   const colors = ['#00A9F7', '#DE8C20', '#8f7eff', '#A263AC', '#5eb89b', '#ff8080', '#6a91e6', '#01A3B2'];
 
@@ -31,6 +31,18 @@ function FontNColor() {
     if (evt.key === 'Escape') {
       setSelectingFont(false);
     }
+  }
+
+  function handleOpenPicker () {
+    setShowPicker(true);
+  }
+
+  function handlePickColor (color) {
+    updateCardInfo(color.hex, 'color');
+    
+    setTimeout(() => {
+      setShowPicker(false);
+    }, 200);
   }
 
   return (
@@ -73,13 +85,16 @@ function FontNColor() {
               </Color>
             ))
           }
-          <ButtonAddColor>
-            <Icon
-              icon={roundPlus}
-              color={currTheme.text.primary}
-              width={24}
-            />
-          </ButtonAddColor>
+          <ButtonPickColor onClick={handleOpenPicker}>
+            {
+              showPicker && (
+                <SketchPicker
+                  color={card.color}
+                  onChangeComplete={handlePickColor}
+                />
+              )
+            }
+          </ButtonPickColor>
         </ColorSelectContainer>
       </InputContainer>
     </Container>

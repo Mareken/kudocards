@@ -142,7 +142,7 @@ export const Color = styled.div`
   }
 `;
 
-export const ButtonAddColor = styled.button`
+export const ButtonPickColor = styled.button`
   cursor: pointer;
   background: ${props => props.theme.colors.secondary};
   width: 60px;
@@ -153,10 +153,21 @@ export const ButtonAddColor = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  background:
+        linear-gradient(red, transparent),
+        linear-gradient(to top left, lime, transparent),
+        linear-gradient(to top right, blue, transparent);
+    background-blend-mode: screen;
+  position: relative;
 
   &:hover {
-    background: ${props => props.theme.colors.background};
-    border-color: ${props => props.theme.colors.primary};
+    border-radius: 50%;
+  }
+
+  .sketch-picker {
+    position: absolute !important;
+    top: 0;
+    left: 0;
   }
 `;
 

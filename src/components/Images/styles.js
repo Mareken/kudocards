@@ -59,9 +59,21 @@ export const Image = styled.div`
   height: 300px;
   border-radius: 5px;
   background: ${props => `url(${props.bg})`};
-  background-size: cover;
+  background-size: 90%;
   background-position: center;
+  background-repeat: no-repeat;
   cursor: pointer;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: ${props => rgba(props.theme.colors.border, .2)};
+    z-index: -1;
+    border-radius: 5px;
+  }
 
   &:hover {
     animation: ${squiggly} 0.2s linear infinite;

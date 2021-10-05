@@ -24,6 +24,11 @@ function Composer () {
   const [ translateX, setTranslateX ] = useState(0);
   const [ indicatorWidth, setIndicatorWidth ] = useState(100);
 
+  const captureConfig = {
+    allowTaint: true,
+    backgroundColor: null
+  }
+
   useEffect(() => {
     changeIndicator();
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -39,7 +44,7 @@ function Composer () {
   }
 
   function downloadKudoCard () {
-    html2canvas(cardRef.current)
+    html2canvas(cardRef.current, captureConfig)
       .then(canvas => saveAs(canvas.toDataURL(), 'kudocard.png'))
       .catch(err => console.error(err));
   }
@@ -153,7 +158,7 @@ function Composer () {
           </CardLeft>
           <CardRight>
             <CardImageContainer currentColor={card.color}>
-              <CardImage src={card.image} />
+              <CardImage image={card.image} />
             </CardImageContainer>
           </CardRight>
         </CardContainer>

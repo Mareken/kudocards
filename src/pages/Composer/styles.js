@@ -97,9 +97,8 @@ export const Preview = styled.div`
 `;
 
 export const CardContainer = styled.div`
-  max-width: 100%;
-  width: 80%;
-  height: auto;
+  width: 40vw;
+  height: 22.5vw;
   min-height: 350px;
   margin: 64px 0 32px 0;
   border-radius: 10px;
@@ -122,6 +121,7 @@ export const ButtonDownload = styled.div`
   border-radius: 30px;
   font-weight: 500;
   background: transparent;
+  user-select: none;
   background: ${props => props.currentColor};
 
   &:hover {
@@ -145,16 +145,15 @@ export const CardLeft = styled.div`
   max-width: 60%;
   height: 100%;
   padding: 32px;
-  hyphens: auto;
   display: flex;
   flex-direction: column;
-  background: transparent;
+  background: ${props => props.theme.title === 'light' ? props.theme.colors.background : props.theme.colors.secondary};
 `;
 
 export const CardMessage = styled.p`
   font-size: 18px;
   color: ${props => props.theme.text.primary};
-  line-height: 27px;
+  line-height: 1.5;
   margin: 16px 0;
   white-space: pre-wrap;
 `;
@@ -201,8 +200,11 @@ export const CardImageContainer = styled.div`
   justify-content: center;
 `;
 
-export const CardImage = styled.img`
+export const CardImage = styled.div`
   width: 100%;
-  height: 350px;
-  object-fit: cover;
+  height: 100%;
+  background: url(${props => props.image});
+  background-size: 90%;
+  background-position: center;
+  background-repeat: no-repeat;
 `;
