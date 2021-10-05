@@ -1287,15 +1287,15 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
-"@iconify/icons-ic@^1.1.4":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@iconify/icons-ic/-/icons-ic-1.1.4.tgz#abcf5945886b8bb14f1799eb1ef07ab34b38124e"
-  integrity sha512-1RH4EtMUa2EM2Ru5GpttzPsX6awuG9bsxPBjs7njYTBCMp+88fJ8v+OZuFDWjOPPUjOTm2OjT5icsZxGuY6+1g==
+"@iconify/icons-ic@^1.1.11":
+  version "1.1.11"
+  resolved "https://registry.yarnpkg.com/@iconify/icons-ic/-/icons-ic-1.1.11.tgz#bc026a2768c38bc865b78d3e8ad119fa113d598d"
+  integrity sha512-lGrnc5mLR0KiGbKhIEQ1eAZa07oi2Yse6sKq8UFrB+xQCepGfT63PBf+e7QSL2n9TVEf47DmNdns1XjKzjMhpQ==
 
-"@iconify/react@^1.1.4":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@iconify/react/-/react-1.1.4.tgz#c778eddbaf196e55705d0bedff00d039dc1de8d3"
-  integrity sha512-oxq8IMOq8q3nKGiDHbQPC8FcFuBsKve68JWBo140d5LRnj0bv5TB/FE/y01ZSvEZ7PlI2HIrnb2qivPN8kTDgw==
+"@iconify/react@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@iconify/react/-/react-3.0.1.tgz#ce2cb3f4a2b6aab5f7af082c833d869b6fb43182"
+  integrity sha512-yUskSSR80JzRSWcqNsBAG9AN802XzZgHsex8mTOkMLYcPQC3fk1XwK17ulnY5vf692OafhGCAMccR8TWKFaGdw==
 
 "@icons/material@^0.2.4":
   version "0.2.4"
