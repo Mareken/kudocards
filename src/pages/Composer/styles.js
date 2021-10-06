@@ -130,7 +130,7 @@ export const Preview = styled.div`
   justify-content: center;
 
   @media screen and (max-width: 768px) {
-    position: absolute;
+    position: fixed;
     top: 0px;
     left: 0px;
     width: 100%;
