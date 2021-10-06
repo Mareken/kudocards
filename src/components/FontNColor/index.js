@@ -5,7 +5,7 @@ import { ThemeContext } from 'styled-components';
 import { SketchPicker } from 'react-color';
 
 import { InputContainer } from '../Content/styles';
-import { Container, FontSelect, FontSelectedText, OptionsContainer, Option, Label, LabelText, ColorSelectContainer, Color, ButtonPickColor, SelectOverlay } from './styles';
+import { Container, FontSelect, FontSelectedText, OptionsContainer, Option, Label, LabelText, ColorSelectContainer, Color, ButtonPickColor, SelectOverlay, ButtonSetTransparent } from './styles';
 
 function FontNColor() {
   const { card, setCard } = useCard();
@@ -45,6 +45,10 @@ function FontNColor() {
     }, 200);
   }
 
+  function setTransparent () {
+    updateCardInfo('rgba(0,0,0,0)', 'color');
+  }
+
   return (
     <Container className='noSelect'>
       <SelectOverlay
@@ -61,10 +65,16 @@ function FontNColor() {
         </Label>
         <OptionsContainer selecting={selectingFont}>
           <Option value='DM Sans' onClick={(evt) => updateCardInfo(evt.target.value, 'font')}>DM Sans</Option>
-          <Option value='Caveat' onClick={(evt) => updateCardInfo(evt.target.value, 'font')}>Caveat</Option>
-          <Option value='Crimson Text' onClick={(evt) => updateCardInfo(evt.target.value, 'font')}>Crimson Text</Option>
-          <Option value='Indie Flower' onClick={(evt) => updateCardInfo(evt.target.value, 'font')}>Indie Flower</Option>
-          <Option value='Nanum Pen Script' onClick={(evt) => updateCardInfo(evt.target.value, 'font')}>Nanum Pen Script</Option>
+          <Option value='Carter One' onClick={(evt) => updateCardInfo(evt.target.value, 'font')}>Carter One</Option>
+          <Option value='Gloria Hallelujah' onClick={(evt) => updateCardInfo(evt.target.value, 'font')}>Gloria Hallelujah</Option>
+          <Option value='Itim' onClick={(evt) => updateCardInfo(evt.target.value, 'font')}>Itim</Option>
+          <Option value='Kalam' onClick={(evt) => updateCardInfo(evt.target.value, 'font')}>Kalam</Option>
+          <Option value='Mali' onClick={(evt) => updateCardInfo(evt.target.value, 'font')}>Mali</Option>
+          <Option value='Noto Sans Mono' onClick={(evt) => updateCardInfo(evt.target.value, 'font')}>Noto Sans Mono</Option>
+          <Option value='Pacifico' onClick={(evt) => updateCardInfo(evt.target.value, 'font')}>Pacifico</Option>
+          <Option value='Playfair Display' onClick={(evt) => updateCardInfo(evt.target.value, 'font')}>Playfair Display</Option>
+          <Option value='Poppins' onClick={(evt) => updateCardInfo(evt.target.value, 'font')}>Poppins</Option>
+          <Option value='Josefin Sans' onClick={(evt) => updateCardInfo(evt.target.value, 'font')}>Josefin Sans</Option>
         </OptionsContainer>
       </InputContainer>
 
@@ -85,6 +95,11 @@ function FontNColor() {
               </Color>
             ))
           }
+          <ButtonSetTransparent onClick={setTransparent} selected={card.color === 'rgba(0,0,0,0)'}>
+            <svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 2L7 13L2 8" stroke={currTheme.title === 'light' ? '#333' : '#eee'} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </ButtonSetTransparent>
           <ButtonPickColor onClick={handleOpenPicker}>
             {
               showPicker && (

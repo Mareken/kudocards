@@ -35,7 +35,7 @@ import {
 function Home() {
   const height = window.innerHeight;
   const { setActiveTab } = useActiveTab();
-  const words = ["TimeF0d@", "MelhorTime", "JustDoIt", "SóVamo", "GoodVibes"];
+  const words = ["TimeF0d@", "MejorEquipo", "JustDoIt", "SóVamo", "GoodVibes", "Vambora", "Paz"];
   const [ chosenWord, setChosenWord ] = useState(words[0]);
   const history = useHistory();
   const { setIsOver } = useMouseOver();
@@ -50,6 +50,7 @@ function Home() {
     return () => {
       document.removeEventListener("mousemove", getMousePos);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function getMousePos(evt) {

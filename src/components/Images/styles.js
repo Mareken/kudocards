@@ -27,6 +27,10 @@ export const Container = styled.div`
   > svg {
     display: none;
   }
+
+  @media screen and (max-width: 768px) {
+    padding: 24px 20px;
+  }
 `;
 
 export const Grid = styled.div`
@@ -52,30 +56,66 @@ export const Grid = styled.div`
     background: ${props => rgba(props.theme.text.secondary,.2)};
     border-radius: 3px;
   }
+
+  @media screen and (max-width: 768px) {
+    height: auto;
+    padding: 0px;
+  }
 `;
 
 export const Image = styled.div`
   width: 100%;
-  height: 300px;
+  height: 200px;
   border-radius: 5px;
   background: ${props => `url(${props.bg})`};
-  background-size: 90%;
+  background-size: contain;
+  padding: 20px;
   background-position: center;
   background-repeat: no-repeat;
   cursor: pointer;
   position: relative;
+  background-origin: content-box;
+  border: 2px solid transparent;
+  transition: border-color .15s ease;
+  border-color: ${props => props.selected ? props.theme.colors.primary : props.theme.colors.border};
 
-  &::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: ${props => rgba(props.theme.colors.border, .2)};
-    z-index: -1;
-    border-radius: 5px;
+  @media screen and (min-width: 768px) {
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: ${props => rgba(props.theme.colors.border, .2)};
+      z-index: -1;
+      border-radius: 5px;
+    }
+  
+    &:hover {
+      animation: ${squiggly} 0.2s linear infinite;
+    }
   }
 
-  &:hover {
-    animation: ${squiggly} 0.2s linear infinite;
+  @media screen and (max-width: 768px) {
+    height: 100px;
+    padding: 15px;
+    border: 1px solid ${props => props.theme.colors.border};
+    background: ${props => rgba(props.theme.colors.border, 0) + ' url(' + props.bg + ')'};
+    background-repeat: no-repeat;
+    background-blend-mode: multiply;
+    background-size: contain;
+    background-position: center;
+    background-origin: content-box;
+    transition: all .15s ease;
+
+    &:active {
+      background: ${props => rgba(props.theme.colors.border, .4) + ' url(' + props.bg + ')'};
+      background-repeat: no-repeat;
+      background-blend-mode: multiply;
+      background-size: contain;
+      background-position: center;
+      background-origin: content-box;
+    }
   }
 `;

@@ -6,6 +6,10 @@ export const Container = styled(motion.div)`
   width: 100%;
   display: flex;
   flex-direction: column;
+
+  @media screen and (max-width: 768px) {
+    padding: 24px 20px;
+  }
 `;
 
 export const InputContainer = styled.div`
@@ -17,6 +21,10 @@ export const InputContainer = styled.div`
 
   &:last-of-type {
     margin-bottom: 0;
+  }
+
+  @media screen and (max-width: 768px) {
+    margin-bottom: 16px;
   }
 `;
 
@@ -45,6 +53,12 @@ export const Row = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 32px;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+    margin-bottom: 16px;
+  }
 `;
 
 export const Label = styled.label`
@@ -100,4 +114,9 @@ export const FromInputContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-right: 16px;
+
+  @media screen and (max-width: 768px) {
+    margin-right: 0px;
+    margin-bottom: 16px;
+  }
 `;

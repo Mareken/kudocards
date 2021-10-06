@@ -37,6 +37,10 @@ const GlobalStyle = createGlobalStyle`
     line-height: 1;
     height: 100vh;
     overflow: hidden;
+
+    @media screen and (max-width: 768px) {
+      overflow: hidden auto;
+    }
   }
 
   #root {

@@ -10,10 +10,10 @@ const CardContext = createContext();
 export function CardProvider ({ children }) {
   const [ card, setCard ] = usePersistedState('kudocard', {
     id: nanoid(),
-    from: '',
-    to: '',
-    header: 'Parabéns! 🥳 ',
-    message: 'Escreve uma mensagem aí 🙌',
+    from: 'Eu',
+    to: 'Time',
+    header: 'Parabéns {{TO}}! 🥳 ',
+    message: 'Escreve uma mensagem aí xovem 🙌',
     font: 'DM Sans',
     color: '#00A9F7',
     image: jaiminho

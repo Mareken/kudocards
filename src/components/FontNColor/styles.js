@@ -7,6 +7,10 @@ export const Container = styled(motion.div)`
   width: 100%;
   display: flex;
   flex-direction: column;
+
+  @media screen and (max-width: 768px) {
+    padding: 24px 20px;
+  }
 `;
 
 function isLight (color) {
@@ -75,26 +79,7 @@ export const Option = styled.button`
   color: ${props => props.theme.text.primary};
   border-radius: 5px;
   font-size: 1rem;
-
-  &:first-of-type {
-    font-family: 'DM Sans', sans-serif;
-  }
-
-  &:nth-of-type(2) {
-    font-family: 'Caveat';
-  }
-
-  &:nth-of-type(2) {
-    font-family: 'Crimson Text';
-  }
-
-  &:nth-of-type(2) {
-    font-family: 'Indie Flower';
-  }
-
-  &:last-of-type {
-    font-family: 'Nanum Pen Script';
-  }
+  font-family: ${props => props.value};
 
   &:hover {
     background: ${props => props.theme.colors.primary};
@@ -168,6 +153,32 @@ export const ButtonPickColor = styled.button`
     position: absolute !important;
     top: 0;
     left: 0;
+  }
+`;
+
+export const ButtonSetTransparent = styled.button`
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+  border-radius: ${props => props.selected ? '50%' : '5px'};
+  transition: all .15s ease;
+  background: ${props => props.theme.title === 'light' ? 'repeating-conic-gradient(#ddd 0% 25%, transparent 0% 50%) 50% / 15px 15px' : 'repeating-conic-gradient(#000 0% 25%, transparent 0% 50%) 50% / 15px 15px'};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid ${props => props.theme.colors.border};
+
+  &:hover {
+    border-radius: 50%;
+  }
+
+  > svg {
+    pointer-events: none;
+
+    > path {
+      transition: all .15s ease;
+      opacity: ${props => props.selected ? 1 : 0};
+    }
   }
 `;
 

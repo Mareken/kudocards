@@ -11,6 +11,7 @@ export function SoundProvider ({ children }) {
 
   useEffect(() => {
     setPlaying(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function playSound() {

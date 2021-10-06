@@ -5,7 +5,7 @@ import useCard from '../../context/Card';
 import { Container, Grid, Image } from './styles';
 
 function Images () {
-  const { setCard } = useCard();
+  const { card, setCard } = useCard();
 
   function importAll (require) {
     return require.keys().reduce((acc, next) => {
@@ -56,6 +56,7 @@ function Images () {
               key={index}
               bg={images[img].default}
               onClick={() => updateCardImage(images[img].default)}
+              selected={card.image === images[img].default}
             />
           ))
         }

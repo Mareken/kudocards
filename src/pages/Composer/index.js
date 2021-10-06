@@ -3,6 +3,11 @@ import React, { useEffect, useRef, useState, useContext } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { ThemeContext } from 'styled-components';
 import html2canvas from 'html2canvas';
+import { Icon } from '@iconify/react';
+import roundArrowBack from '@iconify/icons-ic/round-arrow-back';
+import roundClose from '@iconify/icons-ic/round-close';
+import { useHistory } from 'react-router-dom';
+import useWindowSize from '../../utils/hooks/useWindowSize';
 
 import Buttons from '../../components/Buttons';
 import useActiveTab from '../../context/ActiveTab';
@@ -11,18 +16,21 @@ import Content from '../../components/Content';
 import FontNColor from '../../components/FontNColor';
 import Images from '../../components/Images';
 
-import { Container, Aside, Heading, Tabs, Tab, Indicator, Preview, CardContainer, ButtonDownload, CardHeading, CardLeft, CardRight, CardMessage, CardFooter, CardFrom, CardTo, CardImageContainer, CardImage } from './styles';
+import { Container, Aside, Heading, Tabs, Tab, Indicator, Preview, CardContainer, ButtonDownload, CardHeading, CardLeft, CardRight, CardMessage, CardFooter, CardFrom, CardTo, CardImageContainer, CardImage, ButtonGoBack, ButtonMobile, ButtonCloseBottomSheet } from './styles';
 
 function Composer () {
+  const size = useWindowSize();
   const { activeTab, setActiveTab } = useActiveTab();
   const { card } = useCard();
   const currTheme = useContext(ThemeContext);
   const firstTabRef = useRef();
   const secondTabRef = useRef();
   const thirdTabRef = useRef();
+  const history = useHistory();
   const cardRef = useRef();
   const [ translateX, setTranslateX ] = useState(0);
   const [ indicatorWidth, setIndicatorWidth ] = useState(100);
+  const [ bottomSheetOpen, setBottomSheetOpen ] = useState(false);
 
   const captureConfig = {
     allowTaint: true,
@@ -39,7 +47,7 @@ function Composer () {
     header = header.replace('{{TO}}', to);
 
     return (
-      <CardHeading>{header}</CardHeading>
+      <CardHeading font={card.font}>{header}</CardHeading>
     )
   }
 
@@ -67,21 +75,41 @@ function Composer () {
 }
 
   function changeIndicator() {
-    switch (activeTab) {
-      case 'content':
-        setIndicatorWidth(firstTabRef.current.offsetWidth);
-        setTranslateX(0);
-        break;
-      case 'font&color':
-        setIndicatorWidth(secondTabRef.current.offsetWidth);
-        setTranslateX(firstTabRef.current.offsetWidth + 32);
-        break;
-      case 'image':
-        setIndicatorWidth(thirdTabRef.current.offsetWidth);
-        setTranslateX(firstTabRef.current.offsetWidth + secondTabRef.current.offsetWidth + 64);
-        break;
-      default:
-        return;
+    if (size.width < 768) {
+      switch (activeTab) {
+        case 'content':
+          setIndicatorWidth(firstTabRef.current.offsetWidth);
+          setTranslateX(0);
+          break;
+        case 'font&color':
+          setIndicatorWidth(secondTabRef.current.offsetWidth);
+          setTranslateX(firstTabRef.current.offsetWidth);
+          break;
+        case 'image':
+          setIndicatorWidth(thirdTabRef.current.offsetWidth);
+          setTranslateX(firstTabRef.current.offsetWidth + secondTabRef.current.offsetWidth);
+          break;
+        default:
+          return;
+      }
+    }
+    else {
+      switch (activeTab) {
+        case 'content':
+          setIndicatorWidth(firstTabRef.current.offsetWidth);
+          setTranslateX(0);
+          break;
+        case 'font&color':
+          setIndicatorWidth(secondTabRef.current.offsetWidth);
+          setTranslateX(firstTabRef.current.offsetWidth + 32);
+          break;
+        case 'image':
+          setIndicatorWidth(thirdTabRef.current.offsetWidth);
+          setTranslateX(firstTabRef.current.offsetWidth + secondTabRef.current.offsetWidth + 64);
+          break;
+        default:
+          return;
+      }
     }
   }
   
@@ -107,6 +135,9 @@ function Composer () {
       }}
     >
       <Aside>
+        <ButtonGoBack onClick={() => history.push('/')}>
+          <Icon icon={roundArrowBack} style={{ color: currTheme.text.primary, fontSize: '24px' }} />
+        </ButtonGoBack>
         <Heading>Criando novo Kudo</Heading>
         <Tabs>
           <Tab
@@ -143,17 +174,27 @@ function Composer () {
         </AnimatePresence>
       </Aside>
 
-      <Preview>
-        <Buttons inComposer={true} />
+      {
+        size.width < 768 && (
+          <ButtonMobile onClick={() => bottomSheetOpen ? downloadKudoCard() : setBottomSheetOpen(true)} {...{ bottomSheetOpen }}>
+            <span>Download</span>
+            <span>Preview</span>
+          </ButtonMobile>
+        )
+      }
+
+      <Preview bottomSheetOpen={bottomSheetOpen}>
+        { size.width > 768 && <Buttons inComposer={true} /> }
+        
         <CardContainer className='noSelect' ref={cardRef}>
           <CardLeft>
             { renderCardHeader() }
-            <CardMessage>
+            <CardMessage font={card.font}>
               {card.message}
             </CardMessage>
             <CardFooter>
-              <CardFrom currentColor={card.color}>{card.from}</CardFrom>
-              <CardTo currentColor={card.color}>{card.to}</CardTo>
+              <CardFrom currentColor={card.color === 'rgba(0,0,0,0)' ? currTheme.colors.primary : card.color} font={card.font}>{card.from}</CardFrom>
+              <CardTo currentColor={card.color === 'rgba(0,0,0,0)' ? currTheme.colors.primary : card.color} font={card.font}>{card.to}</CardTo>
             </CardFooter>
           </CardLeft>
           <CardRight>
@@ -162,7 +203,16 @@ function Composer () {
             </CardImageContainer>
           </CardRight>
         </CardContainer>
-        <ButtonDownload currentColor={card.color} onClick={downloadKudoCard}>
+
+        {
+          size.width < 768 && (
+            <ButtonCloseBottomSheet onClick={() => setBottomSheetOpen(false)} {...{ bottomSheetOpen }}>
+              <Icon icon={roundClose} style={{ color: '#fff', fontSize: '24px' }} />
+            </ButtonCloseBottomSheet>
+          )
+        }
+
+        <ButtonDownload currentColor={card.color === 'rgba(0,0,0,0)' ? currTheme.colors.primary : card.color} onClick={downloadKudoCard}>
           <span>Download</span>
           
           <svg xmlns="http://www.w3.org/2000/svg" version="1.1">

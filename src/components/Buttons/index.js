@@ -62,7 +62,7 @@ function Buttons({ inComposer = false }) {
         )
       }
       <Button {...{ inComposer }} onClick={() => setTheme(theme.title === 'dark' ? light : dark)}>
-        <Icon icon={theme.title === 'dark' ? roundWbSunny : roundNightlight} style={{ color: currTheme.text.primary, fontSize: '24px', transform: 'rotate(-45deg)' }} />
+        <Icon icon={theme.title === 'dark' ? roundWbSunny : roundNightlight} style={{ color: currTheme.text.primary, fontSize: '24px', transform: 'translateY(1px) rotate(-45deg)' }} />
       </Button>
       <Button {...{ inComposer, playing }} audio={true} onClick={toggleAudio}>
         <Icon icon={roundHeadset} style={{ color: currTheme.text.primary, fontSize: '24px' }} />
