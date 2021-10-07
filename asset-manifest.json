@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/kudocards/static/js/main.f712af12.chunk.js",
-    "main.js.map": "/kudocards/static/js/main.f712af12.chunk.js.map",
+    "main.js": "/kudocards/static/js/main.ff521c0d.chunk.js",
+    "main.js.map": "/kudocards/static/js/main.ff521c0d.chunk.js.map",
     "runtime-main.js": "/kudocards/static/js/runtime-main.77d5dab8.js",
     "runtime-main.js.map": "/kudocards/static/js/runtime-main.77d5dab8.js.map",
     "static/js/2.c6794641.chunk.js": "/kudocards/static/js/2.c6794641.chunk.js",
@@ -58,6 +58,6 @@
   "entrypoints": [
     "static/js/runtime-main.77d5dab8.js",
     "static/js/2.c6794641.chunk.js",
-    "static/js/main.f712af12.chunk.js"
+    "static/js/main.ff521c0d.chunk.js"
   ]
 }
