@@ -6,7 +6,7 @@ import Composer from './pages/Composer';
 
 function Routes () {
   return (
-    <Router basename={process.env.PUBLIC_URL}>
+    <Router basename='/kudocards'>
       <Route
         render={({ location }) => (
           <AnimatePresence exitBeforeEnter={true}>
