@@ -1,5 +1,5 @@
 {
-  "homepage": "https://mareken.github.io/kudocards/",
+  "homepage": "www.kudocards.com.br",
   "name": "kudocards",
   "version": "0.1.0",
   "private": true,
@@ -32,8 +32,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "yarn run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "yarn run build && echo 'www.kudocards.com.br' > ./build/CNAME && gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
