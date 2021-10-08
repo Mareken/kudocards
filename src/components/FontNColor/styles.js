@@ -9,7 +9,7 @@ export const Container = styled(motion.div)`
   flex-direction: column;
 
   @media screen and (max-width: 768px) {
-    padding: 24px 20px;
+    padding: 24px 20px 82px 20px;
   }
 `;
 

@@ -29,7 +29,7 @@ export const Container = styled.div`
   }
 
   @media screen and (max-width: 768px) {
-    padding: 24px 20px;
+    padding: 24px 20px 82px 20px;
   }
 `;
 

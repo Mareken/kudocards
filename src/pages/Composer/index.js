@@ -6,6 +6,8 @@ import html2canvas from 'html2canvas';
 import { Icon } from '@iconify/react';
 import roundArrowBack from '@iconify/icons-ic/round-arrow-back';
 import roundClose from '@iconify/icons-ic/round-close';
+import contentCopy from '@iconify/icons-ic/content-copy';
+import roundCheck from '@iconify/icons-ic/round-check';
 import { useHistory } from 'react-router-dom';
 import useWindowSize from '../../utils/hooks/useWindowSize';
 
@@ -16,12 +18,12 @@ import Content from '../../components/Content';
 import FontNColor from '../../components/FontNColor';
 import Images from '../../components/Images';
 
-import { Container, Aside, Heading, Tabs, Tab, Indicator, Preview, CardContainer, ButtonDownload, CardHeading, CardLeft, CardRight, CardMessage, CardFooter, CardFrom, CardTo, CardImageContainer, CardImage, ButtonGoBack, ButtonMobile, ButtonCloseBottomSheet } from './styles';
+import { Container, Aside, Heading, Tabs, Tab, Indicator, Preview, CardContainer, ButtonsContainer, ButtonShare, ButtonDownload, CardHeading, CardLeft, CardRight, CardMessage, CardFooter, CardFrom, CardTo, CardImageContainer, CardImage, ButtonGoBack, ButtonMobile, ButtonCloseBottomSheet, ModalOverlay, Modal, ModalHeading, ButtonCloseModal, ButtonCopyLink, ModalLinkContainer, Link, ButtonShareMobile } from './styles';
 
 function Composer () {
   const size = useWindowSize();
   const { activeTab, setActiveTab } = useActiveTab();
-  const { card } = useCard();
+  const { card, shareKudo, currentLink } = useCard();
   const currTheme = useContext(ThemeContext);
   const firstTabRef = useRef();
   const secondTabRef = useRef();
@@ -31,10 +33,12 @@ function Composer () {
   const [ translateX, setTranslateX ] = useState(0);
   const [ indicatorWidth, setIndicatorWidth ] = useState(100);
   const [ bottomSheetOpen, setBottomSheetOpen ] = useState(false);
+  const [ modalOpen, setModalOpen ] = useState(false);
+  const [ copying, setCopying ] = useState(false);
 
   const captureConfig = {
-    allowTaint: true,
-    backgroundColor: null
+    backgroundColor: null,
+    scale: 2
   }
 
   useEffect(() => {
@@ -42,13 +46,9 @@ function Composer () {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab]);
 
-  function renderCardHeader () {
-    let { header, to } = card;
-    header = header.replace('{{TO}}', to);
-
-    return (
-      <CardHeading font={card.font}>{header}</CardHeading>
-    )
+  function handleShareKudo () {
+    setModalOpen(true);
+    shareKudo(card);
   }
 
   function downloadKudoCard () {
@@ -112,6 +112,16 @@ function Composer () {
       }
     }
   }
+
+  function handleCopyLink () {
+    setCopying(true);
+
+    navigator.clipboard.writeText(currentLink);
+
+    setTimeout(() => {
+      setCopying(false);
+    }, 1000);
+  }
   
   return (
     <Container
@@ -134,6 +144,79 @@ function Composer () {
         }
       }}
     >
+      <AnimatePresence>
+        {
+          modalOpen && (
+            <>
+              <ModalOverlay
+                initial={{
+                  opacity: 0,
+                  pointerEvents: 'none'
+                }}
+                animate={{
+                  opacity: .5,
+                  pointerEvents: 'auto',
+                  transition: {
+                    duration: .15
+                  }
+                }}
+                exit={{
+                  opacity: 0,
+                  pointerEvents: 'none',
+                  transition: {
+                    duration: .1
+                  }
+                }}
+                key='overlay'
+                onClick={() => setModalOpen(false)}
+              />
+              <Modal
+                initial={{
+                  x: '-50%',
+                  y: '-50%',
+                  pointerEvents: 'none',
+                  scale: 1.02,
+                  opacity: 0
+                }}
+                animate={{
+                  x: '-50%',
+                  y: '-50%',
+                  pointerEvents: 'auto',
+                  scale: 1,
+                  opacity: 1,
+                  transition: {
+                    duration: .15,
+                    delay: .1
+                  }
+                }}
+                exit={{
+                  x: '-50%',
+                  y: '-50%',
+                  pointerEvents: 'none',
+                  scale: 1,
+                  opacity: 0,
+                  transition: {
+                    duration: .1
+                  }
+                }}
+                key='modal'
+              >
+                <ButtonCloseModal onClick={() => setModalOpen(false)}>
+                  <Icon icon={roundClose} style={{ fontSize: '24px', color: currTheme.text.primary }} />
+                </ButtonCloseModal>
+                <ModalHeading>Envie esse link para quem quer que veja seu KudoCard 🥳<br/>Ele irá durar até 12 horas</ModalHeading>
+                <ModalLinkContainer>
+                  <ButtonCopyLink onClick={handleCopyLink} disabled={copying}>
+                    <Icon icon={copying ? roundCheck : contentCopy} style={{ color: currTheme.text.primary, fontSize: '24px' }} />
+                  </ButtonCopyLink>
+                  <Link>{currentLink}</Link>
+                </ModalLinkContainer>
+              </Modal>
+            </>
+          )
+        }
+      </AnimatePresence>
+
       <Aside>
         <ButtonGoBack onClick={() => history.push('/')}>
           <Icon icon={roundArrowBack} style={{ color: currTheme.text.primary, fontSize: '24px' }} />
@@ -176,10 +259,15 @@ function Composer () {
 
       {
         size.width < 768 && (
-          <ButtonMobile onClick={() => bottomSheetOpen ? downloadKudoCard() : setBottomSheetOpen(true)} {...{ bottomSheetOpen }}>
-            <span>Download</span>
-            <span>Preview</span>
-          </ButtonMobile>
+          <>
+            <ButtonShareMobile onClick={handleShareKudo} {...{ bottomSheetOpen }}>
+              Compartilhar
+            </ButtonShareMobile>
+            <ButtonMobile onClick={() => bottomSheetOpen ? downloadKudoCard() : setBottomSheetOpen(true)} {...{ bottomSheetOpen }}>
+              <span>Download</span>
+              <span>Preview</span>
+            </ButtonMobile>
+          </>
         )
       }
 
@@ -188,7 +276,7 @@ function Composer () {
         
         <CardContainer className='noSelect' ref={cardRef}>
           <CardLeft>
-            { renderCardHeader() }
+            <CardHeading font={card.font}>{card.header}</CardHeading>
             <CardMessage font={card.font}>
               {card.message}
             </CardMessage>
@@ -212,36 +300,70 @@ function Composer () {
           )
         }
 
-        <ButtonDownload currentColor={card.color === 'rgba(0,0,0,0)' ? currTheme.colors.primary : card.color} onClick={downloadKudoCard}>
-          <span>Download</span>
-          
-          <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-            <defs>
-              <filter id="squiggly-0">
-                <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="0"/>
-                <feDisplacementMap id="displacement" in="SourceGraphic" in2="noise" scale="6" />
-              </filter>
-              <filter id="squiggly-1">
-                <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="1"/>
-                <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" />
-              </filter>
-              
-              <filter id="squiggly-2">
-                <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="2"/>
-                <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" />
-              </filter>
-              <filter id="squiggly-3">
-                <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="3"/>
-                <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" />
-              </filter>
-              
-              <filter id="squiggly-4">
-                <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="4"/>
-                <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" />
-              </filter>
-            </defs> 
-          </svg>
-        </ButtonDownload>
+        <ButtonsContainer>
+          <ButtonShare currentColor={card.color === 'rgba(0,0,0,0)' ? currTheme.colors.primary : card.color} onClick={handleShareKudo}>
+            <span>Compartilhar</span>
+            
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+              <defs>
+                <filter id="squiggly-0">
+                  <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="0"/>
+                  <feDisplacementMap id="displacement" in="SourceGraphic" in2="noise" scale="6" />
+                </filter>
+                <filter id="squiggly-1">
+                  <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="1"/>
+                  <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" />
+                </filter>
+                
+                <filter id="squiggly-2">
+                  <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="2"/>
+                  <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" />
+                </filter>
+                <filter id="squiggly-3">
+                  <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="3"/>
+                  <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" />
+                </filter>
+                
+                <filter id="squiggly-4">
+                  <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="4"/>
+                  <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" />
+                </filter>
+              </defs> 
+            </svg>
+          </ButtonShare>
+
+          <ButtonDownload currentColor={card.color === 'rgba(0,0,0,0)' ? currTheme.colors.primary : card.color} onClick={downloadKudoCard}>
+            <span>Download</span>
+            
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+              <defs>
+                <filter id="squiggly-0">
+                  <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="0"/>
+                  <feDisplacementMap id="displacement" in="SourceGraphic" in2="noise" scale="6" />
+                </filter>
+                <filter id="squiggly-1">
+                  <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="1"/>
+                  <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" />
+                </filter>
+                
+                <filter id="squiggly-2">
+                  <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="2"/>
+                  <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" />
+                </filter>
+                <filter id="squiggly-3">
+                  <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="3"/>
+                  <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" />
+                </filter>
+                
+                <filter id="squiggly-4">
+                  <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="4"/>
+                  <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" />
+                </filter>
+              </defs> 
+            </svg>
+          </ButtonDownload>
+        </ButtonsContainer>
+
       </Preview>
     </Container>
   );

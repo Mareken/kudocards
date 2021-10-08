@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
+import qs from 'query-string';
 import useMouseOver from "../../context/MouseOver";
 import useActiveTab from "../../context/ActiveTab";
+import useCard from "../../context/Card";
 import Buttons from "../../components/Buttons";
 
 import hand from "../../assets/images/hand.png";
@@ -34,20 +36,45 @@ import {
 
 function Home() {
   const height = window.innerHeight;
+  const location = useLocation();
+  const { card, fetchCard } = useCard();
   const { setActiveTab } = useActiveTab();
   const words = ["TimeF0d@", "MejorEquipo", "JustDoIt", "SóVamo", "GoodVibes", "Vambora", "Paz"];
   const [ chosenWord, setChosenWord ] = useState(words[0]);
   const history = useHistory();
   const { setIsOver } = useMouseOver();
   const [ mousePos, setMousePos ] = useState({ x: 0, y: 0 });
+  const [ mount, setMount ] = useState(false);
   let title = 'KudoCards.';
 
   useEffect(() => {
+    if (!mount) {
+      const { k } = qs.parse(location.search);
+
+      if (k) {
+        const fetch = async () => {
+          await fetchCard(k)
+            .then(status => {
+              if (status) {
+                history.push(`/showtime/${card.id}`);
+              }
+            });
+        }
+
+        fetch();
+      }
+
+      setTimeout(() => {
+        setMount(true);
+      }, 1000);
+    }
+
     document.addEventListener("mousemove", getMousePos);
     setChosenWord(words[Math.floor(Math.random() * words.length)]);
     setActiveTab('content');
 
     return () => {
+      setMount(false);
       document.removeEventListener("mousemove", getMousePos);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps

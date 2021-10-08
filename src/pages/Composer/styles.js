@@ -165,6 +165,43 @@ export const CardContainer = styled.div`
   }
 `;
 
+export const ButtonsContainer = styled.div`
+  display: flex;
+  align-items: center;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
+export const ButtonShare = styled.div`
+  width: 150px;
+  height: 60px;
+  color: ${props => props.currentColor};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 30px;
+  font-weight: 500;
+  user-select: none;
+  background: transparent;
+  border: 1px solid ${props => props.currentColor};
+  margin-right: 16px;
+
+  &:hover {
+    animation: ${squiggly} 0.25s linear infinite;
+  }
+
+  > svg {
+    display: none;
+  }
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
 export const ButtonDownload = styled.div`
   width: 150px;
   height: 60px;
@@ -298,7 +335,7 @@ export const ButtonCloseBottomSheet = styled.button`
   justify-content: center;
   transition: all .15s ease;
   margin-top: auto;
-  margin-bottom: 68px;
+  margin-bottom: 128px;
   transform: ${props => props.bottomSheetOpen ? 'scale(1)' : 'scale(.6)'};
   opacity: ${props => props.bottomSheetOpen ? 1 : 0};
   transition: transform .6s cubic-bezier(.2,.7,.2,1.2), opacity .3s ease;
@@ -337,6 +374,25 @@ export const ButtonGoBack = styled.button`
   }
 `;
 
+export const ButtonShareMobile = styled.button`
+  position: fixed;
+  bottom: 60px;
+  left: 0px;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  background: ${props => props.theme.colors.border};
+  transition: all .3s cubic-bezier(.785,.135,.15,.86);
+  transform: ${props => props.bottomSheetOpen ? 'translateY(0)' : 'translateY(100%)'};
+  z-index: 15;
+  font-weight: 500;
+  transition-delay: ${props => props.bottomSheetOpen ? '.15s' : '0s'};
+`;
+
 export const ButtonMobile = styled.button`
   position: fixed;
   bottom: 0px;
@@ -367,6 +423,126 @@ export const ButtonMobile = styled.button`
       transform: ${props => props.bottomSheetOpen ? 'translateY(100%)' : 'translateY(0px)'};
       opacity: ${props => props.bottomSheetOpen ? 0 : 1};
       color: #fff;
+    }
+  }
+`;
+
+export const ModalOverlay = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 15;
+  background: ${props => props.theme.colors.primary};
+  opacity: 0;
+`;
+
+export const Modal = styled(motion.div)`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  background: ${props => props.theme.colors.background};
+  border-radius: 8px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  z-index: 20;
+`;
+
+export const ModalHeading = styled.p`
+  color: ${props => props.theme.text.primary};
+  margin-bottom: 24px;
+  padding-right: 90px;
+  line-height: 24px;
+  font-weight: 500;
+`;
+
+export const ButtonCloseModal = styled.button`
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  border-radius: 50%;
+  transition: all .15s ease;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: ${props => props.theme.colors.background};
+
+  &:hover {
+    background: ${props => props.theme.colors.border};
+  }
+`;
+
+export const ModalLinkContainer = styled.div`
+  display: flex;
+  align-items: center;
+  height: 50px;
+  flex-direction: row-reverse;
+`;
+
+export const Link = styled.div`
+  flex: 1;
+  border: 1px solid ${props => props.theme.colors.border};
+  border-radius: 5px 0px 0px 5px;
+  height: 100%;
+  padding: 0px 16px;
+  display: flex;
+  align-items: center;
+  border-right-color: transparent;
+  transition: all .15s ease;
+`;
+
+export const ButtonCopyLink = styled.button`
+  cursor: pointer;
+  width: 50px;
+  height: 100%;
+  border-radius: 0px 5px 5px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: ${props => props.theme.colors.border};
+  transition: all .15s ease;
+  position: relative;
+
+  &::before {
+    content: 'Copiar';
+    position: absolute;
+    background: ${props => props.theme.text.primary};
+    color: ${props => props.theme.colors.background};
+    border-radius: 5px;
+    padding: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    left: calc(100% + 4px);
+    opacity: 0;
+    transition: all .15s ease;
+    pointer-events: none;
+    transition-delay: 0s;
+  }
+
+  > svg > path {
+    transition: all .15s ease;
+  }
+
+  &:hover {
+    background: ${props => props.theme.colors.primary};
+
+    + ${Link} {
+      border-color: ${props => props.theme.colors.primary} !important;
+      border-right-color: transparent;
+    }
+
+    &::before {
+      opacity: 1;
+      transition-delay: .05s;
+    }
+
+    > svg > path {
+      fill: #fff !important;
     }
   }
 `;
