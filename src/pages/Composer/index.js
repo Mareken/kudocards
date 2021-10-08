@@ -35,6 +35,7 @@ function Composer () {
   const [ bottomSheetOpen, setBottomSheetOpen ] = useState(false);
   const [ modalOpen, setModalOpen ] = useState(false);
   const [ copying, setCopying ] = useState(false);
+  const [ mount, setMount ] = useState(false);
 
   const captureConfig = {
     backgroundColor: null,
@@ -48,7 +49,11 @@ function Composer () {
 
   function handleShareKudo () {
     setModalOpen(true);
-    shareKudo(card);
+
+    if (!mount) {
+      shareKudo(card);
+      setMount(true);
+    }
   }
 
   function downloadKudoCard () {
@@ -202,7 +207,7 @@ function Composer () {
                 key='modal'
               >
                 <ButtonCloseModal onClick={() => setModalOpen(false)}>
-                  <Icon icon={roundClose} style={{ fontSize: '24px', color: currTheme.text.primary }} />
+                  <Icon icon={roundClose} style={{ fontSize: '24px', color: currTheme.text.secondary }} />
                 </ButtonCloseModal>
                 <ModalHeading>Envie esse link para quem quer que veja seu KudoCard 🥳<br/>Ele irá durar até 12 horas</ModalHeading>
                 <ModalLinkContainer>

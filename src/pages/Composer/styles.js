@@ -449,6 +449,10 @@ export const Modal = styled(motion.div)`
   display: flex;
   flex-direction: column;
   z-index: 20;
+
+  @media screen and (max-width: 768px) {
+    width: calc(100% - 40px);
+  }
 `;
 
 export const ModalHeading = styled.p`
@@ -457,6 +461,10 @@ export const ModalHeading = styled.p`
   padding-right: 90px;
   line-height: 24px;
   font-weight: 500;
+
+  @media screen and (max-width: 768px) {
+    padding-right: 20px;
+  }
 `;
 
 export const ButtonCloseModal = styled.button`
@@ -473,35 +481,44 @@ export const ButtonCloseModal = styled.button`
   cursor: pointer;
   background: ${props => props.theme.colors.background};
 
-  &:hover {
+  &:hover,
+  &:active {
     background: ${props => props.theme.colors.border};
   }
 `;
 
 export const ModalLinkContainer = styled.div`
   display: flex;
-  align-items: center;
+  align-items: stretch;
   height: 50px;
   flex-direction: row-reverse;
+
+  @media screen and (max-width: 768px) {
+    height: auto;
+  }
 `;
 
 export const Link = styled.div`
   flex: 1;
   border: 1px solid ${props => props.theme.colors.border};
   border-radius: 5px 0px 0px 5px;
-  height: 100%;
   padding: 0px 16px;
   display: flex;
   align-items: center;
   border-right-color: transparent;
+  line-height: 24px;
   transition: all .15s ease;
   color: ${props => props.theme.text.primary};
+
+  @media screen and (max-width: 768px) {
+    padding: 8px;
+    overflow: hidden;
+  }
 `;
 
 export const ButtonCopyLink = styled.button`
   cursor: pointer;
-  width: 50px;
-  height: 100%;
+  flex: 0 0 50px;
   border-radius: 0px 5px 5px 0px;
   display: flex;
   align-items: center;
