@@ -390,6 +390,7 @@ export const ButtonShareMobile = styled.button`
   transform: ${props => props.bottomSheetOpen ? 'translateY(0)' : 'translateY(100%)'};
   z-index: 15;
   font-weight: 500;
+  color: ${props => props.theme.text.primary};
   transition-delay: ${props => props.bottomSheetOpen ? '.15s' : '0s'};
 `;
 
@@ -494,6 +495,7 @@ export const Link = styled.div`
   align-items: center;
   border-right-color: transparent;
   transition: all .15s ease;
+  color: ${props => props.theme.text.primary};
 `;
 
 export const ButtonCopyLink = styled.button`
