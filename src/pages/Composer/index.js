@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState, useContext } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { ThemeContext } from 'styled-components';
 import html2canvas from 'html2canvas';
+import { useTranslation } from 'react-i18next';
 import { Icon } from '@iconify/react';
 import roundArrowBack from '@iconify/icons-ic/round-arrow-back';
 import roundClose from '@iconify/icons-ic/round-close';
@@ -22,6 +23,7 @@ import { Container, Aside, Heading, Tabs, Tab, Indicator, Preview, CardContainer
 
 function Composer () {
   const size = useWindowSize();
+  const { t, i18n } = useTranslation();
   const { activeTab, setActiveTab } = useActiveTab();
   const { card, shareKudo, currentLink } = useCard();
   const currTheme = useContext(ThemeContext);
@@ -45,7 +47,7 @@ function Composer () {
   useEffect(() => {
     changeIndicator();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeTab]);
+  }, [activeTab, i18n.language, size.width]);
 
   function handleShareKudo () {
     setModalOpen(true);
@@ -209,9 +211,10 @@ function Composer () {
                 <ButtonCloseModal onClick={() => setModalOpen(false)}>
                   <Icon icon={roundClose} style={{ fontSize: '24px', color: currTheme.text.secondary }} />
                 </ButtonCloseModal>
-                <ModalHeading>Envie esse link para quem quer que veja seu KudoCard 🥳<br/>Ele irá durar até 12 horas</ModalHeading>
+                <ModalHeading>{t('shareModal.heading')}</ModalHeading>
                 <ModalLinkContainer>
                   <ButtonCopyLink onClick={handleCopyLink} disabled={copying}>
+                    <span>{t('shareModal.copy')}</span>
                     <Icon icon={copying ? roundCheck : contentCopy} style={{ color: currTheme.text.primary, fontSize: '24px' }} />
                   </ButtonCopyLink>
                   <Link>{currentLink}</Link>
@@ -226,28 +229,28 @@ function Composer () {
         <ButtonGoBack onClick={() => history.push('/')}>
           <Icon icon={roundArrowBack} style={{ color: currTheme.text.primary, fontSize: '24px' }} />
         </ButtonGoBack>
-        <Heading>Criando novo Kudo</Heading>
+        <Heading>{t('composer.heading')}</Heading>
         <Tabs>
           <Tab
             active={activeTab === 'content'}
             onClick={() => setActiveTab('content')}
             ref={firstTabRef}
           >
-            Conteúdo
+            {t('composer.tabs.first')}
           </Tab>
           <Tab
             active={activeTab === 'font&color'}
             onClick={() => setActiveTab('font&color')}
             ref={secondTabRef}
           >
-            Fonte &amp; Cor
+            {t('composer.tabs.second')}
           </Tab>
           <Tab
             active={activeTab === 'image'}
             onClick={() => setActiveTab('image')}
             ref={thirdTabRef}
           >
-            Imagem
+            {t('composer.tabs.third')}
           </Tab>
           <Indicator
             width={indicatorWidth}
@@ -266,11 +269,11 @@ function Composer () {
         size.width < 768 && (
           <>
             <ButtonShareMobile onClick={handleShareKudo} {...{ bottomSheetOpen }}>
-              Compartilhar
+              {t('composer.share')}
             </ButtonShareMobile>
             <ButtonMobile onClick={() => bottomSheetOpen ? downloadKudoCard() : setBottomSheetOpen(true)} {...{ bottomSheetOpen }}>
-              <span>Download</span>
-              <span>Preview</span>
+              <span>{t('composer.download')}</span>
+              <span>{t('composer.preview')}</span>
             </ButtonMobile>
           </>
         )
@@ -286,8 +289,14 @@ function Composer () {
               {card.message}
             </CardMessage>
             <CardFooter>
-              <CardFrom currentColor={card.color === 'rgba(0,0,0,0)' ? currTheme.colors.primary : card.color} font={card.font}>{card.from}</CardFrom>
-              <CardTo currentColor={card.color === 'rgba(0,0,0,0)' ? currTheme.colors.primary : card.color} font={card.font}>{card.to}</CardTo>
+              <CardFrom currentColor={card.color === 'rgba(0,0,0,0)' ? currTheme.colors.primary : card.color} font={card.font}>
+                <span>{t('composer.content.from')}&nbsp;</span>
+                {card.from}
+              </CardFrom>
+              <CardTo currentColor={card.color === 'rgba(0,0,0,0)' ? currTheme.colors.primary : card.color} font={card.font}>
+                <span>{t('composer.content.to')}&nbsp;</span>
+                {card.to}
+              </CardTo>
             </CardFooter>
           </CardLeft>
           <CardRight>
@@ -307,7 +316,7 @@ function Composer () {
 
         <ButtonsContainer>
           <ButtonShare currentColor={card.color === 'rgba(0,0,0,0)' ? currTheme.colors.primary : card.color} onClick={handleShareKudo}>
-            <span>Compartilhar</span>
+            <span>{t('composer.share')}</span>
             
             <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
               <defs>
@@ -338,7 +347,7 @@ function Composer () {
           </ButtonShare>
 
           <ButtonDownload currentColor={card.color === 'rgba(0,0,0,0)' ? currTheme.colors.primary : card.color} onClick={downloadKudoCard}>
-            <span>Download</span>
+            <span>{t('composer.download')}</span>
             
             <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
               <defs>

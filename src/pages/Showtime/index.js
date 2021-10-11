@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from "react";
 
 import { useHistory } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 import { ThemeContext } from "styled-components";
 import useCard from '../../context/Card';
 import confetti from 'canvas-confetti';
@@ -13,11 +14,12 @@ let defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
 
 function Showtime() {
   const history = useHistory();
+  const { t } = useTranslation();
   const currTheme = useContext(ThemeContext);
   const { card, clearKudo, setCurrentLink } = useCard();
 
   useEffect(() => {
-    let msg = '%c Você recebeu um KudoCard 🤩!'; 
+    let msg = t('showtime.console'); 
     let styles = [ 
       'font-size: 12px',
       'font-family: monospace',
@@ -83,7 +85,7 @@ function Showtime() {
           }
         }}
       >
-        <span>{card.from}</span> te enviou um KudoCard 🤩!
+        <span>{card.from}</span> {t('showtime.heading')}
       </Heading>
       <CardContainer
         className='noSelect'
@@ -127,7 +129,7 @@ function Showtime() {
       </CardContainer>
 
       <ButtonGoHome onClick={goToComposer} currentColor={card.color === 'rgba(0,0,0,0)' ? currTheme.colors.primary : card.color}>
-        <span>Criar um Kudo</span>
+        <span>{t('showtime.cta')}</span>
 
         <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
           <defs>

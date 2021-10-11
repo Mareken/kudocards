@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
 
 import qs from 'query-string';
+import { useHistory, useLocation } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
+import useWindowSize from '../../utils/hooks/useWindowSize';
 import useMouseOver from "../../context/MouseOver";
 import useActiveTab from "../../context/ActiveTab";
 import useCard from "../../context/Card";
@@ -35,7 +37,9 @@ import {
 } from "./styles";
 
 function Home() {
-  const height = window.innerHeight;
+  const { t } = useTranslation();
+  const size = useWindowSize();
+  const height = size.height;
   const location = useLocation();
   const { card, fetchCard } = useCard();
   const { setActiveTab } = useActiveTab();
@@ -159,7 +163,7 @@ function Home() {
             boxShadow: "1px 1px 2px rgba(0, 169, 247, 0.16)"
           }}
         >
-          <Label>Criar novo Kudo</Label>
+          <Label>{t('home.cta')}</Label>
         </Button>
       </Center>
 

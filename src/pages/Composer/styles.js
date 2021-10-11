@@ -286,8 +286,7 @@ export const CardFrom = styled.p`
   max-width: 50%;
   font-family: ${props => props.font};
 
-  &::before {
-    content: 'De: ';
+  > span {
     color: ${props => props.theme.text.primary};
   }
 
@@ -297,11 +296,7 @@ export const CardFrom = styled.p`
   }
 `;
 
-export const CardTo = styled(CardFrom)`
-  &::before {
-    content: 'Para: ';
-  }
-`;
+export const CardTo = styled(CardFrom)``;
 
 export const CardRight = styled.div`
   flex: 0 0 40%;
@@ -461,6 +456,7 @@ export const ModalHeading = styled.p`
   padding-right: 90px;
   line-height: 24px;
   font-weight: 500;
+  white-space: pre-line;
 
   @media screen and (max-width: 768px) {
     padding-right: 20px;
@@ -483,7 +479,7 @@ export const ButtonCloseModal = styled.button`
 
   &:hover,
   &:active {
-    background: ${props => props.theme.colors.border};
+    background: ${props => rgba(props.theme.colors.primary, .1)};
   }
 `;
 
@@ -527,8 +523,7 @@ export const ButtonCopyLink = styled.button`
   transition: all .15s ease;
   position: relative;
 
-  &::before {
-    content: 'Copiar';
+  > span {
     position: absolute;
     background: ${props => props.theme.text.primary};
     color: ${props => props.theme.colors.background};
@@ -555,7 +550,7 @@ export const ButtonCopyLink = styled.button`
       border-right-color: transparent;
     }
 
-    &::before {
+    > span {
       opacity: 1;
       transition-delay: .05s;
     }

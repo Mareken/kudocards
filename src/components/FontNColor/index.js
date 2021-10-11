@@ -3,11 +3,13 @@ import React, { useContext, useEffect, useState } from 'react';
 import useCard from '../../context/Card';
 import { ThemeContext } from 'styled-components';
 import { SketchPicker } from 'react-color';
+import { useTranslation } from 'react-i18next';
 
 import { InputContainer } from '../Content/styles';
 import { Container, FontSelect, FontSelectedText, OptionsContainer, Option, Label, LabelText, ColorSelectContainer, Color, ButtonPickColor, SelectOverlay, ButtonSetTransparent } from './styles';
 
 function FontNColor() {
+  const { t } = useTranslation();
   const { card, setCard } = useCard();
   const [ selectingFont, setSelectingFont ] = useState(false);
   const [ showPicker, setShowPicker ] = useState(false);
@@ -58,7 +60,7 @@ function FontNColor() {
 
       <InputContainer>
         <Label onClick={() => setSelectingFont(prevState => !prevState)}>
-          <LabelText>Fonte:</LabelText>
+          <LabelText>{t('composer.fontcolor.font')}</LabelText>
           <FontSelect selecting={selectingFont}>
             <FontSelectedText fontFamily={card.font}>{card.font}</FontSelectedText>
           </FontSelect>
@@ -79,7 +81,7 @@ function FontNColor() {
       </InputContainer>
 
       <InputContainer>
-        <LabelText>Cor:</LabelText>
+        <LabelText>{t('composer.fontcolor.color')}</LabelText>
         <ColorSelectContainer>
           {
             colors.map((color, index) => (

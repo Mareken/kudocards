@@ -1,0 +1,22 @@
+{
+  "home.cta": "Create new Kudo",
+  "languageModal.heading": "Select language",
+  "composer.heading": "Creating new Kudo",
+  "composer.tabs.first": "Content",
+  "composer.tabs.second": "Font & Color",
+  "composer.tabs.third": "Image",
+  "composer.content.from": "From:",
+  "composer.content.to": "To:",
+  "composer.content.header": "Header:",
+  "composer.content.message": "Message:",
+  "composer.fontcolor.font": "Font:",
+  "composer.fontcolor.color": "Color:",
+  "composer.share": "Share",
+  "composer.download": "Download",
+  "composer.preview": "Preview",
+  "shareModal.heading": "Send this link to whoever you want to see your KudoCard\t🥳\nIt will be active for the next 12 hours",
+  "shareModal.copy": "Copy",
+  "showtime.console": "%c You received a KudoCard 🤩!",
+  "showtime.cta": "Create a Kudo",
+  "showtime.heading": "sent you a KudoCard 🤩!"
+}
