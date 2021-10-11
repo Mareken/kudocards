@@ -357,15 +357,138 @@ export const ButtonGoBack = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: border-color .15s ease;
+  transition: all .15s ease;
   border: 2px solid transparent;
 
   &:active {
-    border-color: ${props => props.theme.colors.primary};
+    background: ${props => rgba(props.theme.colors.primary, .1)};
   }
 
   @media screen and (min-width: 768px) {
     display: none;
+  }
+`;
+
+export const ButtonMenuOptions = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: ${props => props.theme.title === 'dark' ? props.theme.colors.secondary : props.theme.colors.background};
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .15s ease;
+  border: 2px solid transparent;
+
+  &:active {
+    background: ${props => rgba(props.theme.colors.primary, .1)};
+  }
+
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
+`;
+
+export const MenuOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 15;
+  pointer-events: none;
+
+  &.open {
+    pointer-events: auto;
+  }
+
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
+`;
+
+export const Menu = styled.div`
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  width: 250px;
+  height: auto;
+  padding: 8px;
+  background: ${props => props.theme.colors.background};
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: ${props => props.theme.title === 'light' ? '0 2px 5px rgba(0,0,0,.13)' : 'none'};
+  pointer-events: none;
+  z-index: 20;
+  transition: all .15s cubic-bezier(.785,.135,.15,.86);
+  transform: translate3d(30px, -30px, -5px) scale(.9);
+  opacity: 0;
+
+  &.open {
+    pointer-events: auto;
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+  }
+
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
+`;
+
+export const Option = styled.button`
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  justify-content: space-between;
+  transition: all .15s ease;
+  background: transparent;
+  border-radius: 5px;
+  position: relative;
+
+  &:active {
+    background: ${props => rgba(props.theme.colors.primary, .1)};
+  }
+
+  > select {
+    position: absolute;
+    width: calc(100% - 16px);
+    opacity: 0;
+  }
+
+  > span {
+    color: ${props => props.theme.text.primary};
+  }
+
+  > p {
+    color: ${props => props.theme.text.secondary};
+  }
+`;
+
+export const Switch = styled.div`
+  width: 42px;
+  height: 24px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  background: ${props => props.isOn ? rgba(props.theme.colors.primary, .2) : props.theme.colors.border};
+  transition: all .15s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: ${props => props.isOn ? props.theme.colors.primary : props.theme.text.secondary};
+    transition: transform .3s cubic-bezier(.2,.7,.2,1.2);
+    transform: ${props => props.isOn ? 'translateX(18px)' : 'translateX(0)'};
   }
 `;
 

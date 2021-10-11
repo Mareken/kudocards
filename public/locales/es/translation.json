@@ -18,5 +18,8 @@
   "shareModal.copy": "Copiar",
   "showtime.console": "%c Recibiste un KudoCard 🤩!",
   "showtime.cta": "Crear un Kudo",
-  "showtime.heading": "te envió un KudoCard 🤩!"
+  "showtime.heading": "te envió un KudoCard 🤩!",
+  "menuMobile.theme": "Tema oscuro",
+  "menuMobile.audio": "Audio",
+  "menuMobile.language": "Idioma"
 }

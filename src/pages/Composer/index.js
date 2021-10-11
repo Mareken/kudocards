@@ -6,11 +6,14 @@ import html2canvas from 'html2canvas';
 import { useTranslation } from 'react-i18next';
 import { Icon } from '@iconify/react';
 import roundArrowBack from '@iconify/icons-ic/round-arrow-back';
+import roundMoreVert from '@iconify/icons-ic/round-more-vert';
 import roundClose from '@iconify/icons-ic/round-close';
 import contentCopy from '@iconify/icons-ic/content-copy';
 import roundCheck from '@iconify/icons-ic/round-check';
+import useSound from '../../context/Sound';
 import { useHistory } from 'react-router-dom';
 import useWindowSize from '../../utils/hooks/useWindowSize';
+import useTheme from '../../context/Theme';
 
 import Buttons from '../../components/Buttons';
 import useActiveTab from '../../context/ActiveTab';
@@ -19,7 +22,10 @@ import Content from '../../components/Content';
 import FontNColor from '../../components/FontNColor';
 import Images from '../../components/Images';
 
-import { Container, Aside, Heading, Tabs, Tab, Indicator, Preview, CardContainer, ButtonsContainer, ButtonShare, ButtonDownload, CardHeading, CardLeft, CardRight, CardMessage, CardFooter, CardFrom, CardTo, CardImageContainer, CardImage, ButtonGoBack, ButtonMobile, ButtonCloseBottomSheet, ModalOverlay, Modal, ModalHeading, ButtonCloseModal, ButtonCopyLink, ModalLinkContainer, Link, ButtonShareMobile } from './styles';
+import dark from '../../styles/themes/dark';
+import light from '../../styles/themes/light';
+
+import { Container, Aside, Heading, Tabs, Tab, Indicator, Preview, CardContainer, ButtonsContainer, ButtonShare, ButtonDownload, CardHeading, CardLeft, CardRight, CardMessage, CardFooter, CardFrom, CardTo, CardImageContainer, CardImage, ButtonGoBack, ButtonMobile, ButtonCloseBottomSheet, ModalOverlay, Modal, ModalHeading, ButtonCloseModal, ButtonCopyLink, ModalLinkContainer, Link, ButtonShareMobile, ButtonMenuOptions, MenuOverlay, Menu, Option, Switch } from './styles';
 
 function Composer () {
   const size = useWindowSize();
@@ -29,15 +35,18 @@ function Composer () {
   const currTheme = useContext(ThemeContext);
   const firstTabRef = useRef();
   const secondTabRef = useRef();
+  const { setTheme } = useTheme();
   const thirdTabRef = useRef();
   const history = useHistory();
   const cardRef = useRef();
+  const { playSound, playing, stopSound } = useSound();
   const [ translateX, setTranslateX ] = useState(0);
   const [ indicatorWidth, setIndicatorWidth ] = useState(100);
   const [ bottomSheetOpen, setBottomSheetOpen ] = useState(false);
   const [ modalOpen, setModalOpen ] = useState(false);
   const [ copying, setCopying ] = useState(false);
   const [ mount, setMount ] = useState(false);
+  const [ menuOpen, setMenuOpen ] = useState(true);
 
   const captureConfig = {
     backgroundColor: null,
@@ -48,6 +57,15 @@ function Composer () {
     changeIndicator();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab, i18n.language, size.width]);
+
+  function toggleAudio () {
+    if (!playing) {
+      playSound();
+    }
+    else {
+      stopSound();
+    }
+  }
 
   function handleShareKudo () {
     setModalOpen(true);
@@ -79,7 +97,20 @@ function Composer () {
     } else {
         window.open(uri);
     }
-}
+  }
+
+  function renderLanguage () {
+    switch (i18n.language) {
+      case 'es':
+        return 'Español';
+      case 'en':
+        return 'English';
+      case 'pt-BR':
+        return 'Português';
+      default:
+        return '';
+    }
+  }
 
   function changeIndicator() {
     if (size.width < 768) {
@@ -118,6 +149,11 @@ function Composer () {
           return;
       }
     }
+  }
+
+  function changeLanguage (evt) {
+    i18n.changeLanguage(evt.target.value);
+    setMenuOpen(false);
   }
 
   function handleCopyLink () {
@@ -229,6 +265,32 @@ function Composer () {
         <ButtonGoBack onClick={() => history.push('/')}>
           <Icon icon={roundArrowBack} style={{ color: currTheme.text.primary, fontSize: '24px' }} />
         </ButtonGoBack>
+        <ButtonMenuOptions onClick={() => setMenuOpen(true)}>
+          <Icon icon={roundMoreVert} style={{ color: currTheme.text.primary, fontSize: '24px' }} />
+        </ButtonMenuOptions>
+
+        <MenuOverlay className={menuOpen ? 'open' : ''} onClick={() => setMenuOpen(false)} />
+
+        <Menu className={menuOpen ? 'open' : ''}>
+          <Option onClick={() => setTheme(currTheme.title === 'dark' ? light : dark)}>
+            <span>{t('menuMobile.theme')}</span>
+            <Switch isOn={currTheme.title === 'dark'} />
+          </Option>
+          <Option onClick={toggleAudio}>
+            <span>{t('menuMobile.audio')}</span>
+            <Switch isOn={playing ? 1 : 0} />
+          </Option>
+          <Option>
+            <span>{t('menuMobile.language')}</span>
+            <p>{renderLanguage()}</p>
+            <select onChange={changeLanguage}>
+              <option value='en'>English</option>
+              <option value='es'>Español</option>
+              <option value='pt-BR'>Português</option>
+            </select>
+          </Option>
+        </Menu>
+
         <Heading>{t('composer.heading')}</Heading>
         <Tabs>
           <Tab
