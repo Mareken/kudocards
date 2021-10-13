@@ -195,6 +195,8 @@ function Home() {
           style={{
             transform: `translateX(calc(-50% + ${(mousePos.x * -2) / 500}px)`,
           }}
+          alt=''
+          role='presentation'
         />
         <Diamond
           src={diamond}
@@ -204,6 +206,8 @@ function Home() {
               (mousePos.y * -2) / 500
             }px, 0)`,
           }}
+          alt=''
+          role='presentation'
         />
         <Dog
           src={dog}
@@ -213,6 +217,8 @@ function Home() {
               (mousePos.y * 3) / 500
             }px, 0)`,
           }}
+          alt=''
+          role='presentation'
         />
         <Man
           src={man}
@@ -222,6 +228,8 @@ function Home() {
               (mousePos.y * -2) / 500
             }px, 0)`,
           }}
+          alt=''
+          role='presentation'
         />
         <Woman
           src={woman}
@@ -231,6 +239,8 @@ function Home() {
               (mousePos.y * 3) / 500
             }px, 0)`,
           }}
+          alt=''
+          role='presentation'
         />
         <Laptop
           src={laptop}
@@ -240,6 +250,8 @@ function Home() {
               mousePos.y / 500
             }px, 0)`,
           }}
+          alt=''
+          role='presentation'
         />
         <Wave
           src={wave}
@@ -249,6 +261,8 @@ function Home() {
               (mousePos.y * 4) / 500
             }px, 0)`,
           }}
+          alt=''
+          role='presentation'
         />
       </ImagesContainer>
     </Container>
