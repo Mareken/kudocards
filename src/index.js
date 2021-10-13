@@ -5,6 +5,11 @@ import { ThemeProvider } from './context/Theme';
 
 import './i18n';
 
+if (process.env.NODE_ENV !== "development") {
+  console.log = () => {};
+  console.warn = () => {};
+}
+
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider>
