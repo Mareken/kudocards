@@ -37,7 +37,7 @@ i18n
   .init({
     detection: options,
     fallbackLng: 'pt-br',
-    debug: true,
+    debug: process.env.NODE_ENV === 'production' ? false : true,
     keySeparator: false,
     interpolation: {
       escapeValue: false,
