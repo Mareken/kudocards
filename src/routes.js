@@ -4,6 +4,7 @@ import { AnimatePresence } from 'framer-motion';
 import Home from './pages/Home';
 import Composer from './pages/Composer';
 import Showtime from './pages/Showtime';
+import Page404 from './pages/Page404';
 
 function Routes () {
   return (
@@ -20,6 +21,9 @@ function Routes () {
               </Route>
               <Route exact path="/showtime/:id">
                 <Showtime />
+              </Route>
+              <Route path="*">
+                <Page404 />
               </Route>
             </Switch>
           </AnimatePresence>
