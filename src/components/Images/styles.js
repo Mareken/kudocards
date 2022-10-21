@@ -1,5 +1,5 @@
-import { rgba } from 'polished';
-import styled, { keyframes } from 'styled-components';
+import { rgba } from "polished";
+import styled, { keyframes } from "styled-components";
 
 const squiggly = keyframes`
   0% {
@@ -41,6 +41,7 @@ export const Grid = styled.div`
   overflow-y: auto;
   padding: 0 12px 32px 0;
   position: relative;
+  scrollbar-width: thin;
 
   ::-webkit-scrollbar {
     width: 4px;
@@ -48,12 +49,12 @@ export const Grid = styled.div`
   }
 
   ::-webkit-scrollbar-track {
-    background: ${props => rgba(props.theme.colors.secondary, 0)};
+    background: ${(props) => rgba(props.theme.colors.secondary, 0)};
     border-radius: 3px;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: ${props => rgba(props.theme.text.secondary,.2)};
+    background: ${(props) => rgba(props.theme.text.secondary, 0.2)};
     border-radius: 3px;
   }
 
@@ -67,7 +68,7 @@ export const Image = styled.div`
   width: 100%;
   height: 200px;
   border-radius: 5px;
-  background: ${props => `url(${props.bg})`};
+  background: ${(props) => `url(${props.bg})`};
   background-size: contain;
   padding: 20px;
   background-position: center;
@@ -76,22 +77,23 @@ export const Image = styled.div`
   position: relative;
   background-origin: content-box;
   border: 2px solid transparent;
-  transition: border-color .15s ease;
-  border-color: ${props => props.selected ? props.theme.colors.primary : props.theme.colors.border};
+  transition: border-color 0.15s ease;
+  border-color: ${(props) =>
+    props.selected ? props.theme.colors.primary : props.theme.colors.border};
 
   @media screen and (min-width: 768px) {
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: ${props => rgba(props.theme.colors.border, .2)};
+      background: ${(props) => rgba(props.theme.colors.border, 0.2)};
       z-index: -1;
       border-radius: 5px;
     }
-  
+
     &:hover {
       animation: ${squiggly} 0.2s linear infinite;
     }
@@ -100,17 +102,19 @@ export const Image = styled.div`
   @media screen and (max-width: 768px) {
     height: 100px;
     padding: 15px;
-    border: 1px solid ${props => props.theme.colors.border};
-    background: ${props => rgba(props.theme.colors.border, 0) + ' url(' + props.bg + ')'};
+    border: 1px solid ${(props) => props.theme.colors.border};
+    background: ${(props) =>
+      rgba(props.theme.colors.border, 0) + " url(" + props.bg + ")"};
     background-repeat: no-repeat;
     background-blend-mode: multiply;
     background-size: contain;
     background-position: center;
     background-origin: content-box;
-    transition: all .15s ease;
+    transition: all 0.15s ease;
 
     &:active {
-      background: ${props => rgba(props.theme.colors.border, .4) + ' url(' + props.bg + ')'};
+      background: ${(props) =>
+        rgba(props.theme.colors.border, 0.4) + " url(" + props.bg + ")"};
       background-repeat: no-repeat;
       background-blend-mode: multiply;
       background-size: contain;

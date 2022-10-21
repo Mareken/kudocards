@@ -21,5 +21,9 @@
   "showtime.heading": "te enviou um KudoCard 🤩!",
   "menuMobile.theme": "Tema escuro",
   "menuMobile.audio": "Áudio",
-  "menuMobile.language": "Idioma"
+  "menuMobile.language": "Idioma",
+  "card.from": "Eu",
+  "card.to": "Time",
+  "card.header": "Parabéns 🥳",
+  "card.message": "Escreva sua mensagem aqui..."
 }

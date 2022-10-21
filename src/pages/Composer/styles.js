@@ -1,7 +1,7 @@
-import styled, { keyframes } from 'styled-components';
-import { motion } from 'framer-motion';
-import { lighten, rgba, darken } from 'polished';
-import tinycolor from 'tinycolor2';
+import styled, { keyframes } from "styled-components";
+import { motion } from "framer-motion";
+import { lighten, rgba, darken } from "polished";
+import tinycolor from "tinycolor2";
 
 const squiggly = keyframes`
   0% {
@@ -21,9 +21,9 @@ const squiggly = keyframes`
   }
 `;
 
-function isLight (color) {
+function isLight(color) {
   const c = tinycolor(color);
-  return (c.getBrightness() > 130);
+  return c.getBrightness() > 130;
 }
 
 export const Container = styled(motion.div)`
@@ -38,8 +38,28 @@ export const Container = styled(motion.div)`
 
 export const Aside = styled.div`
   flex: 0 0 600px;
-  background: ${props => props.theme.title === 'light' ? props.theme.colors.background : props.theme.colors.secondary};
+  background: ${(props) =>
+    props.theme.title === "light"
+      ? props.theme.colors.background
+      : props.theme.colors.secondary};
   padding: 40px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+
+  ::-webkit-scrollbar {
+    width: 5px;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: ${(props) => props.theme.colors.secondary};
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: ${(props) => props.theme.text.secondary};
+    border-radius: 3px;
+  }
 
   @media screen and (max-width: 768px) {
     padding: 0px;
@@ -50,7 +70,7 @@ export const Aside = styled.div`
 
 export const Heading = styled.h3`
   font-size: 24px;
-  color: ${props => props.theme.text.primary};
+  color: ${(props) => props.theme.text.primary};
   font-weight: bold;
   margin-bottom: 24px;
   display: block;
@@ -73,7 +93,7 @@ export const Tabs = styled.div`
 
   @media screen and (max-width: 768px) {
     justify-content: center;
-    border-bottom: 1px solid ${props => props.theme.colors.border};
+    border-bottom: 1px solid ${(props) => props.theme.colors.border};
     margin-bottom: 0px;
   }
 `;
@@ -84,10 +104,11 @@ export const Tab = styled.div`
   display: flex;
   align-items: center;
   text-align: center;
-  color: ${props => props.active ? props.theme.text.primary : props.theme.text.secondary};
+  color: ${(props) =>
+    props.active ? props.theme.text.primary : props.theme.text.secondary};
   font-size: 1rem;
   font-weight: 500;
-  transition: all .15s ease;
+  transition: all 0.15s ease;
   margin-right: 32px;
 
   &:last-of-type {
@@ -95,7 +116,7 @@ export const Tab = styled.div`
   }
 
   &:hover {
-    color: ${props => props.theme.text.primary};
+    color: ${(props) => props.theme.text.primary};
   }
 
   @media screen and (max-width: 768px) {
@@ -109,12 +130,12 @@ export const Indicator = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
-  width: ${props => props.width}px;
-  transform: ${props => `translateX(${props.x}px)`};
+  width: ${(props) => props.width}px;
+  transform: ${(props) => `translateX(${props.x}px)`};
   height: 2px;
-  background: ${props => props.theme.colors.primary};
+  background: ${(props) => props.theme.colors.primary};
   border-radius: 4px;
-  transition: all .3s cubic-bezier(.2,.7,.2,1.2);
+  transition: all 0.3s cubic-bezier(0.2, 0.7, 0.2, 1.2);
 
   @media screen and (max-width: 768px) {
     bottom: -1px;
@@ -123,7 +144,10 @@ export const Indicator = styled.div`
 
 export const Preview = styled.div`
   flex: 1;
-  background: ${props => props.theme.title === 'light' ? props.theme.colors.secondary : props.theme.colors.background};
+  background: ${(props) =>
+    props.theme.title === "light"
+      ? props.theme.colors.secondary
+      : props.theme.colors.background};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -138,9 +162,10 @@ export const Preview = styled.div`
     z-index: 10;
     justify-content: flex-start;
     padding: 24px 20px;
-    background: ${props => props.theme.colors.primary};
-    transition: all .45s cubic-bezier(.785,.135,.15,.86);
-    transform: ${props => props.bottomSheetOpen ? 'translateY(0)' : 'translateY(100%)'};
+    background: ${(props) => props.theme.colors.primary};
+    transition: all 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    transform: ${(props) =>
+      props.bottomSheetOpen ? "translateY(0)" : "translateY(100%)"};
   }
 `;
 
@@ -151,7 +176,10 @@ export const CardContainer = styled.div`
   margin: 64px 0 32px 0;
   border-radius: 10px;
   box-shadow: 1px 1px 1px rgba(2, 33, 48, 0.16);
-  background: ${props => props.theme.title === 'light' ? props.theme.colors.background : props.theme.colors.secondary};
+  background: ${(props) =>
+    props.theme.title === "light"
+      ? props.theme.colors.background
+      : props.theme.colors.secondary};
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -177,7 +205,7 @@ export const ButtonsContainer = styled.div`
 export const ButtonShare = styled.div`
   width: 150px;
   height: 60px;
-  color: ${props => props.currentColor};
+  color: ${(props) => props.currentColor};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -186,7 +214,7 @@ export const ButtonShare = styled.div`
   font-weight: 500;
   user-select: none;
   background: transparent;
-  border: 1px solid ${props => props.currentColor};
+  border: 1px solid ${(props) => props.currentColor};
   margin-right: 16px;
 
   &:hover {
@@ -214,7 +242,7 @@ export const ButtonDownload = styled.div`
   font-weight: 500;
   background: transparent;
   user-select: none;
-  background: ${props => props.currentColor};
+  background: ${(props) => props.currentColor};
 
   &:hover {
     animation: ${squiggly} 0.25s linear infinite;
@@ -231,10 +259,10 @@ export const ButtonDownload = styled.div`
 `;
 
 export const CardHeading = styled.h3`
-  font-family: ${props => props.font};
+  font-family: ${(props) => props.font};
   font-size: 24px;
   font-weight: bold;
-  color: ${props => props.theme.text.primary};
+  color: ${(props) => props.theme.text.primary};
 
   @media screen and (max-width: 768px) {
     font-size: 14px;
@@ -248,7 +276,10 @@ export const CardLeft = styled.div`
   padding: 32px;
   display: flex;
   flex-direction: column;
-  background: ${props => props.theme.title === 'light' ? props.theme.colors.background : props.theme.colors.secondary};
+  background: ${(props) =>
+    props.theme.title === "light"
+      ? props.theme.colors.background
+      : props.theme.colors.secondary};
 
   @media screen and (max-width: 768px) {
     padding: 16px;
@@ -257,11 +288,11 @@ export const CardLeft = styled.div`
 
 export const CardMessage = styled.p`
   font-size: 18px;
-  color: ${props => props.theme.text.primary};
+  color: ${(props) => props.theme.text.primary};
   line-height: 1.5;
   margin: 16px 0;
   white-space: pre-wrap;
-  font-family: ${props => props.font};
+  font-family: ${(props) => props.font};
 
   @media screen and (max-width: 768px) {
     font-size: 12px;
@@ -277,17 +308,17 @@ export const CardFooter = styled.div`
 export const CardFrom = styled.p`
   display: block;
   position: relative;
-  color: ${props => props.currentColor};
+  color: ${(props) => props.currentColor};
   font-weight: bold;
   font-size: 18px;
   line-height: 26px;
   margin-right: 32px;
   flex: 0 0 1;
   max-width: 50%;
-  font-family: ${props => props.font};
+  font-family: ${(props) => props.font};
 
   > span {
-    color: ${props => props.theme.text.primary};
+    color: ${(props) => props.theme.text.primary};
   }
 
   @media screen and (max-width: 768px) {
@@ -304,40 +335,44 @@ export const CardRight = styled.div`
 `;
 
 export const CardImageContainer = styled.div`
-  background: ${props => props.currentColor === 'rgba(0,0,0,0)' ? 'rgba(0,0,0,0)' : (rgba(isLight(props.currentColor) ? lighten(.2, props.currentColor) : lighten(.4, props.currentColor), .25))};
+  background: ${(props) =>
+    props.currentColor === "rgba(0,0,0,0)"
+      ? "rgba(0,0,0,0)"
+      : rgba(
+          isLight(props.currentColor)
+            ? lighten(0.2, props.currentColor)
+            : lighten(0.4, props.currentColor),
+          0.25
+        )};
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
-export const CardImage = styled.div`
-  width: 100%;
-  height: 100%;
-  background: url(${props => props.image});
-  background-size: 80%;
-  background-position: center;
-  background-repeat: no-repeat;
+export const CardImage = styled.img`
+  width: 80%;
+  object-fit: contain;
 `;
 
 export const ButtonCloseBottomSheet = styled.button`
-  background: ${props => darken(.1, props.theme.colors.primary)};
+  background: ${(props) => darken(0.1, props.theme.colors.primary)};
   width: 60px;
   height: 60px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all .15s ease;
+  transition: all 0.15s ease;
   margin-top: auto;
   margin-bottom: 128px;
-  transform: ${props => props.bottomSheetOpen ? 'scale(1)' : 'scale(.6)'};
-  opacity: ${props => props.bottomSheetOpen ? 1 : 0};
-  transition: transform .6s cubic-bezier(.2,.7,.2,1.2), opacity .3s ease;
-  transition-delay: ${props => props.bottomSheetOpen ? '.4s' : '0s'};
+  transform: ${(props) => (props.bottomSheetOpen ? "scale(1)" : "scale(.6)")};
+  opacity: ${(props) => (props.bottomSheetOpen ? 1 : 0)};
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1.2), opacity 0.3s ease;
+  transition-delay: ${(props) => (props.bottomSheetOpen ? ".4s" : "0s")};
 
   &:active {
-    transform: scale(.8);
+    transform: scale(0.8);
     transition-delay: 0s;
   }
 
@@ -350,18 +385,21 @@ export const ButtonGoBack = styled.button`
   position: absolute;
   top: 10px;
   left: 10px;
-  background: ${props => props.theme.title === 'dark' ? props.theme.colors.secondary : props.theme.colors.background};
+  background: ${(props) =>
+    props.theme.title === "dark"
+      ? props.theme.colors.secondary
+      : props.theme.colors.background};
   width: 40px;
   height: 40px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all .15s ease;
+  transition: all 0.15s ease;
   border: 2px solid transparent;
 
   &:active {
-    background: ${props => rgba(props.theme.colors.primary, .1)};
+    background: ${(props) => rgba(props.theme.colors.primary, 0.1)};
   }
 
   @media screen and (min-width: 768px) {
@@ -373,18 +411,21 @@ export const ButtonMenuOptions = styled.button`
   position: absolute;
   top: 10px;
   right: 10px;
-  background: ${props => props.theme.title === 'dark' ? props.theme.colors.secondary : props.theme.colors.background};
+  background: ${(props) =>
+    props.theme.title === "dark"
+      ? props.theme.colors.secondary
+      : props.theme.colors.background};
   width: 40px;
   height: 40px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all .15s ease;
+  transition: all 0.15s ease;
   border: 2px solid transparent;
 
   &:active {
-    background: ${props => rgba(props.theme.colors.primary, .1)};
+    background: ${(props) => rgba(props.theme.colors.primary, 0.1)};
   }
 
   @media screen and (min-width: 768px) {
@@ -417,15 +458,16 @@ export const Menu = styled.div`
   width: 250px;
   height: auto;
   padding: 8px;
-  background: ${props => props.theme.colors.background};
+  background: ${(props) => props.theme.colors.background};
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  box-shadow: ${props => props.theme.title === 'light' ? '0 2px 5px rgba(0,0,0,.13)' : 'none'};
+  box-shadow: ${(props) =>
+    props.theme.title === "light" ? "0 2px 5px rgba(0,0,0,.13)" : "none"};
   pointer-events: none;
   z-index: 20;
-  transition: all .15s cubic-bezier(.785,.135,.15,.86);
-  transform: translate3d(30px, -30px, -5px) scale(.9);
+  transition: all 0.15s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  transform: translate3d(30px, -30px, -5px) scale(0.9);
   opacity: 0;
 
   &.open {
@@ -445,13 +487,13 @@ export const Option = styled.button`
   align-items: center;
   padding: 0 8px;
   justify-content: space-between;
-  transition: all .15s ease;
+  transition: all 0.15s ease;
   background: transparent;
   border-radius: 5px;
   position: relative;
 
   &:active {
-    background: ${props => rgba(props.theme.colors.primary, .1)};
+    background: ${(props) => rgba(props.theme.colors.primary, 0.1)};
   }
 
   > select {
@@ -461,11 +503,11 @@ export const Option = styled.button`
   }
 
   > span {
-    color: ${props => props.theme.text.primary};
+    color: ${(props) => props.theme.text.primary};
   }
 
   > p {
-    color: ${props => props.theme.text.secondary};
+    color: ${(props) => props.theme.text.secondary};
   }
 `;
 
@@ -476,19 +518,24 @@ export const Switch = styled.div`
   display: flex;
   align-items: center;
   position: relative;
-  background: ${props => props.isOn ? rgba(props.theme.colors.primary, .2) : props.theme.colors.border};
-  transition: all .15s ease;
+  background: ${(props) =>
+    props.isOn
+      ? rgba(props.theme.colors.primary, 0.2)
+      : props.theme.colors.border};
+  transition: all 0.15s ease;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     left: 4px;
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    background: ${props => props.isOn ? props.theme.colors.primary : props.theme.text.secondary};
-    transition: transform .3s cubic-bezier(.2,.7,.2,1.2);
-    transform: ${props => props.isOn ? 'translateX(18px)' : 'translateX(0)'};
+    background: ${(props) =>
+      props.isOn ? props.theme.colors.primary : props.theme.text.secondary};
+    transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1.2);
+    transform: ${(props) =>
+      props.isOn ? "translateX(18px)" : "translateX(0)"};
   }
 `;
 
@@ -503,13 +550,14 @@ export const ButtonShareMobile = styled.button`
   align-items: center;
   justify-content: center;
   font-size: 18px;
-  background: ${props => props.theme.colors.border};
-  transition: all .3s cubic-bezier(.785,.135,.15,.86);
-  transform: ${props => props.bottomSheetOpen ? 'translateY(0)' : 'translateY(100%)'};
+  background: ${(props) => props.theme.colors.border};
+  transition: all 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  transform: ${(props) =>
+    props.bottomSheetOpen ? "translateY(0)" : "translateY(100%)"};
   z-index: 15;
   font-weight: 500;
-  color: ${props => props.theme.text.primary};
-  transition-delay: ${props => props.bottomSheetOpen ? '.15s' : '0s'};
+  color: ${(props) => props.theme.text.primary};
+  transition-delay: ${(props) => (props.bottomSheetOpen ? ".15s" : "0s")};
 `;
 
 export const ButtonMobile = styled.button`
@@ -523,24 +571,27 @@ export const ButtonMobile = styled.button`
   align-items: center;
   justify-content: center;
   font-size: 18px;
-  background: ${props => props.bottomSheetOpen ? '#fff' : props.theme.colors.primary};
-  transition: all .15s ease;
+  background: ${(props) =>
+    props.bottomSheetOpen ? "#fff" : props.theme.colors.primary};
+  transition: all 0.15s ease;
   z-index: 20;
   font-weight: 500;
-  
+
   > span {
     position: absolute;
-    transition: all .3s cubic-bezier(.785,.135,.15,.86);
+    transition: all 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86);
 
     &:first-of-type {
-      transform: ${props => props.bottomSheetOpen ? 'translateY(0px)' : 'translateY(-100%)'};
-      opacity: ${props => props.bottomSheetOpen ? 1 : 0};
-      color: ${props => props.theme.colors.primary};
+      transform: ${(props) =>
+        props.bottomSheetOpen ? "translateY(0px)" : "translateY(-100%)"};
+      opacity: ${(props) => (props.bottomSheetOpen ? 1 : 0)};
+      color: ${(props) => props.theme.colors.primary};
     }
 
     &:last-of-type {
-      transform: ${props => props.bottomSheetOpen ? 'translateY(100%)' : 'translateY(0px)'};
-      opacity: ${props => props.bottomSheetOpen ? 0 : 1};
+      transform: ${(props) =>
+        props.bottomSheetOpen ? "translateY(100%)" : "translateY(0px)"};
+      opacity: ${(props) => (props.bottomSheetOpen ? 0 : 1)};
       color: #fff;
     }
   }
@@ -553,7 +604,7 @@ export const ModalOverlay = styled(motion.div)`
   width: 100%;
   height: 100%;
   z-index: 15;
-  background: ${props => props.theme.colors.primary};
+  background: ${(props) => props.theme.colors.primary};
   opacity: 0;
 `;
 
@@ -561,7 +612,7 @@ export const Modal = styled(motion.div)`
   position: fixed;
   top: 50%;
   left: 50%;
-  background: ${props => props.theme.colors.background};
+  background: ${(props) => props.theme.colors.background};
   border-radius: 8px;
   padding: 24px;
   display: flex;
@@ -574,7 +625,7 @@ export const Modal = styled(motion.div)`
 `;
 
 export const ModalHeading = styled.p`
-  color: ${props => props.theme.text.primary};
+  color: ${(props) => props.theme.text.primary};
   margin-bottom: 24px;
   padding-right: 90px;
   line-height: 24px;
@@ -591,18 +642,18 @@ export const ButtonCloseModal = styled.button`
   top: 16px;
   right: 16px;
   border-radius: 50%;
-  transition: all .15s ease;
+  transition: all 0.15s ease;
   width: 40px;
   height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  background: ${props => props.theme.colors.background};
+  background: ${(props) => props.theme.colors.background};
 
   &:hover,
   &:active {
-    background: ${props => rgba(props.theme.colors.primary, .1)};
+    background: ${(props) => rgba(props.theme.colors.primary, 0.1)};
   }
 `;
 
@@ -619,15 +670,15 @@ export const ModalLinkContainer = styled.div`
 
 export const Link = styled.div`
   flex: 1;
-  border: 1px solid ${props => props.theme.colors.border};
+  border: 1px solid ${(props) => props.theme.colors.border};
   border-radius: 5px 0px 0px 5px;
   padding: 0px 16px;
   display: flex;
   align-items: center;
   border-right-color: transparent;
   line-height: 24px;
-  transition: all .15s ease;
-  color: ${props => props.theme.text.primary};
+  transition: all 0.15s ease;
+  color: ${(props) => props.theme.text.primary};
 
   @media screen and (max-width: 768px) {
     padding: 8px;
@@ -642,40 +693,40 @@ export const ButtonCopyLink = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: ${props => props.theme.colors.border};
-  transition: all .15s ease;
+  background: ${(props) => props.theme.colors.border};
+  transition: all 0.15s ease;
   position: relative;
 
   > span {
     position: absolute;
-    background: ${props => props.theme.text.primary};
-    color: ${props => props.theme.colors.background};
+    background: ${(props) => props.theme.text.primary};
+    color: ${(props) => props.theme.colors.background};
     border-radius: 5px;
     padding: 8px;
     top: 50%;
     transform: translateY(-50%);
     left: calc(100% + 4px);
     opacity: 0;
-    transition: all .15s ease;
+    transition: all 0.15s ease;
     pointer-events: none;
     transition-delay: 0s;
   }
 
   > svg > path {
-    transition: all .15s ease;
+    transition: all 0.15s ease;
   }
 
   &:hover {
-    background: ${props => props.theme.colors.primary};
+    background: ${(props) => props.theme.colors.primary};
 
     + ${Link} {
-      border-color: ${props => props.theme.colors.primary} !important;
+      border-color: ${(props) => props.theme.colors.primary} !important;
       border-right-color: transparent;
     }
 
     > span {
       opacity: 1;
-      transition-delay: .05s;
+      transition-delay: 0.05s;
     }
 
     > svg > path {

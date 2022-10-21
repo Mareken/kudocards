@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
-import { lighten } from 'polished';
-import styled from 'styled-components';
+import { motion } from "framer-motion";
+import { lighten } from "polished";
+import styled from "styled-components";
 
 export const Container = styled(motion.div)`
   width: 100%;
@@ -63,7 +63,7 @@ export const Row = styled.div`
 `;
 
 export const Label = styled.label`
-  color: ${props => props.theme.text.primary};
+  color: ${(props) => props.theme.text.primary};
   margin-bottom: 8px;
   font-size: 1rem;
 `;
@@ -71,21 +71,25 @@ export const Label = styled.label`
 export const Input = styled.input`
   height: 60px;
   border-radius: 5px;
-  background: ${props => props.theme.title === 'light' ? props.theme.colors.secondary : lighten(.08, props.theme.colors.secondary)};
-  border: 2px solid ${props => props.theme.colors.border};
+  background: ${(props) =>
+    props.theme.title === "light"
+      ? props.theme.colors.secondary
+      : lighten(0.08, props.theme.colors.secondary)};
+  border: 2px solid ${(props) => props.theme.colors.border};
   padding: 0 48px 0px 16px;
   font-size: 1rem;
   line-height: 1.5;
-  transition: all .15s ease;
-  color: ${props => props.theme.text.primary};
+  transition: all 0.15s ease;
+  width: 100%;
+  color: ${(props) => props.theme.text.primary};
 
   &:hover {
-    border-color: ${props => props.theme.text.secondary};
+    border-color: ${(props) => props.theme.text.secondary};
   }
 
   &:focus {
-    background: ${props => props.theme.colors.background};
-    border-color: ${props => props.theme.colors.primary};
+    background: ${(props) => props.theme.colors.background};
+    border-color: ${(props) => props.theme.colors.primary};
   }
 `;
 
@@ -93,6 +97,8 @@ export const MessageInput = styled(Input)`
   padding: 12px 12px 12px 14px;
   resize: none;
   height: 200px;
+  scrollbar-width: thin;
+  width: 100%;
 
   ::-webkit-scrollbar {
     width: 5px;
@@ -100,12 +106,12 @@ export const MessageInput = styled(Input)`
   }
 
   ::-webkit-scrollbar-track {
-    background: ${props => props.theme.colors.secondary};
+    background: ${(props) => props.theme.colors.secondary};
     border-radius: 3px;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: ${props => props.theme.text.secondary};
+    background: ${(props) => props.theme.text.secondary};
     border-radius: 3px;
   }
 `;
