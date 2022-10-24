@@ -455,7 +455,7 @@ function Composer() {
           </CardLeft>
           <CardRight>
             <CardImageContainer currentColor={card.color}>
-              <CardImage src={card.image} draggable={false} />
+              <CardImage src={card.image} draggable={false} cover={card.image?.includes('solid') ? 1 : 0} />
             </CardImageContainer>
           </CardRight>
         </CardContainer>

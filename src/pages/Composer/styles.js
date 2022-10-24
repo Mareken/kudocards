@@ -351,8 +351,9 @@ export const CardImageContainer = styled.div`
 `;
 
 export const CardImage = styled.img`
-  width: 80%;
-  object-fit: contain;
+  width: ${props => props.cover ? '100%' : '80%'};
+  height: auto;
+  object-fit: ${props => props.cover ? 'cover' : 'contain'};
 `;
 
 export const ButtonCloseBottomSheet = styled.button`
